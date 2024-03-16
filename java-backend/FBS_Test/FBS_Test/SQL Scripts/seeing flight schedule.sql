@@ -1,0 +1,1 @@
+SELECT * FROM `flight-booking-system`.flight_schedule;
