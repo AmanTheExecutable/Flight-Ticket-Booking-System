@@ -5,6 +5,7 @@ import { Flight } from '../modals/flight.modal';
   providedIn: 'root'
 })
 export class BookingDataService {
+  totalAmount: number = 0;
   passengersData: any[] = [];
   flight: Flight | null = null;
 

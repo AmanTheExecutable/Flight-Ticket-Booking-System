@@ -9,6 +9,7 @@ import { BookingDataService } from '../services/booking-data.service';
   styleUrls: ['./booking-confirmation.component.scss']
 })
 export class ConfirmBookingComponent implements OnInit {
+  totalAmount: number = 0;
   passengersData: any;
   flight: any;
 
@@ -17,6 +18,7 @@ export class ConfirmBookingComponent implements OnInit {
   ngOnInit() {
     this.passengersData = this.bookingDataService.passengersData;
     this.flight = this.bookingDataService.flight;
+    this.totalAmount = this.bookingDataService.totalAmount;
   }
 
   calculateDuration(): string {
@@ -35,7 +37,7 @@ export class ConfirmBookingComponent implements OnInit {
   }
 
   payment(): void {
-    const totalPrice = this.flight.economy_class_price * this.passengersData.length;
+    const totalPrice = this.bookingDataService.totalAmount;
     this.paymentService.setTotalPrice(totalPrice);
     this.router.navigate(['/payment'])
   }

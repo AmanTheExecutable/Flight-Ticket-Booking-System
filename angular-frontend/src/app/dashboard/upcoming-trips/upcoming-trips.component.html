@@ -1,10 +1,25 @@
+<h2>Upcoming Trips</h2>
 <div class="upcoming-trips">
-  <h2>Upcoming Trips</h2>
   <ul>
     <li *ngFor="let trip of upcomingTrips">
-      Trip ID: {{ trip.tripId }} Company: {{ trip.company }} Departure Date:
-      {{ trip.departureDate }} Source: {{ trip.source }} Destination:
-      {{ trip.destination }} Price: {{ trip.price }}
+      <p>
+        Booking ID: <span>{{ trip.travelID }}</span>
+      </p>
+      <p>
+        Company: <span>{{ trip.company }}</span>
+      </p>
+      <p>
+        Departure Date: <span>{{ trip.departureDate }}</span>
+      </p>
+      <p>
+        Source: <span>{{ trip.source }}</span>
+      </p>
+      <p>
+        Destination: <span>{{ trip.destination }}</span>
+      </p>
+      <p>
+        Price: <span>{{ trip.price }}</span>
+      </p>
     </li>
   </ul>
 </div>

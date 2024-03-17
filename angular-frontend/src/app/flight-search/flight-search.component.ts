@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class FlightSearchComponent {
   source: string;
   destination: string;
-  departureDate: Date;
+  departureDate: string;
   roundTrip: boolean;
   userform: FormGroup;
 
@@ -29,12 +29,10 @@ export class FlightSearchComponent {
     });
   }
 
-  searchFlights(source: string, destination: string): void {
-    this.flightService.searchFlights(source, destination).subscribe(
+  searchFlights(source: string, destination: string, departureDate: string): void {
+    this.flightService.searchFlights(source, destination, departureDate).subscribe(
       (flights: Flight[]) => {
-        // Save filtered flights in FlightSearchService
         this.flightService.setFilteredFlights(flights);
-        // Navigate to app-flight-list route
         this.navigateToFlightList(source, destination);
       },
       error => {
@@ -44,7 +42,6 @@ export class FlightSearchComponent {
   }
 
   navigateToFlightList(source: string, destination: string): void {
-    console.log('Navigating to flight list')
     this.router.navigate(['/flight-search-list'], {
       queryParams: {
         source,

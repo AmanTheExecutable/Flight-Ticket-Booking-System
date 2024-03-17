@@ -7,7 +7,7 @@ import { Observable, of } from 'rxjs';
 })
 export class UserService {
 
-  userDetials: any = {
+  userDetails: any = {
     username: 'Aman Jangra',
     email: 'temp@gmail.com',
     phoneNo: '7814161155',
@@ -25,11 +25,14 @@ export class UserService {
   }
 
   getUserDetails(): Observable<any> {
-    return of(this.userDetials);
+    return of(this.userDetails);
   }
-
   updateUserDetails(userData: any): Observable<any> {
-    this.userDetials = userData;
-    return of(userData);
+    for (const key in userData) {
+      if(userData[key]!='' && userData[key]!=null){
+        this.userDetails[key] = userData[key];
+      }
+    }
+    return of(this.userDetails);
   }
 }

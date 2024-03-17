@@ -18,8 +18,7 @@ export class UpcomingTripsComponent implements OnInit {
   }
 
   loadUpcomingTrips(): void {
-    // Assuming the service method is provided to fetch upcoming trips data
-    this.bookingService.getFutureBookings('').subscribe(trips => {
+    this.bookingService.getConfirmedBookings().subscribe(trips => {
       this.upcomingTrips = trips;
     });
   }

@@ -17,9 +17,7 @@ export class BookingComponent implements OnInit {
   bookingForm: FormGroup;
 
   constructor(
-    private route: ActivatedRoute,
     private fb: FormBuilder,
-    private bookingService: BookingService,
     private router: Router,
     private bookingDataService: BookingDataService
   ) { }
@@ -49,7 +47,7 @@ export class BookingComponent implements OnInit {
       age: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       address: ['', Validators.required],
-
+      seatCategory: ['economy'],
       seat: [this.seats++],
     }));
   }
@@ -64,6 +62,7 @@ export class BookingComponent implements OnInit {
   
     this.bookingDataService.setPassengersData(passengersData);
     this.bookingDataService.setFlight(flight);
+    this.bookingDataService.totalAmount = this.calculateTotalPrice();
   
     this.router.navigate(['/confirm-booking']);
   }
@@ -82,6 +81,31 @@ export class BookingComponent implements OnInit {
     const minutes = Math.floor((duration % (1000 * 60 * 60)) / (1000 * 60));
   
     return `${hours}h ${minutes}m`;
+  }
+
+  calculateTotalPrice(): number {
+    const totalPassengers = this.passengers.length;
+    let totalPrice = 0;
+  
+    for (const passenger of this.passengers.controls) {
+      const seatCategory = passenger.get('seatCategory').value;
+      switch (seatCategory) {
+        case 'economy':
+          totalPrice += this.flight.economy_class_price;
+          break;
+        case 'business':
+          totalPrice += this.flight.business_class_price;
+          break;
+        case 'firstClass':
+          totalPrice += this.flight.first_class_price;
+          break;
+        default:
+          totalPrice += this.flight.economy_class_price;
+          break;
+      }
+    }
+  
+    return totalPrice * totalPassengers;
   }
   
 }

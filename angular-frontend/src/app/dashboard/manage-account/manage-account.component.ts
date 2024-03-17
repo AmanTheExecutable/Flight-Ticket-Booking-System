@@ -27,11 +27,11 @@ export class ManageAccountComponent implements OnInit {
 
   ngOnInit(): void {
     this.userForm = this.fb.group({
-      username: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      address: ['', Validators.required],
-      phoneNo: ['', Validators.required],
-      dob: ['', Validators.required],
+      username: [''],
+      email: ['', [Validators.email]],
+      address: [''],
+      phoneNo: [''],
+      dob: [''],
     });
 
     this.bookingService.getPastBookings('').subscribe(

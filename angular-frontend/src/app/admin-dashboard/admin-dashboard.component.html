@@ -1,13 +1,12 @@
-<header>
-  <a routerLink="/admin-dashboard"><h1>King Flyer</h1></a>
-  <nav>
-    <button *ngIf="!isLoggedIn" (click)="navigateTo('login')">Login</button>
-    <button *ngIf="isLoggedIn" (click)="logout()">Logout</button>
-  </nav>
-</header>
-
 <div class="admin-dashboard">
-  <h2>Admin Dashboard</h2>
+  <header>
+    <a routerLink="/admin-dashboard"><h1>King Flyer</h1></a>
+    <nav>
+      <button *ngIf="!isLoggedIn" (click)="navigateTo('login')">Login</button>
+      <button *ngIf="isLoggedIn" (click)="logout()">Logout</button>
+    </nav>
+  </header>
+
   <div class="admin-actions">
     <button (click)="navigateTo('flight-schedule-management')">
       Add Flight

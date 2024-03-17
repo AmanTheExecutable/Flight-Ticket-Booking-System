@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BookingService } from '../services/booking.service';
+import { BookingService } from '../../services/booking.service';
 
 @Component({
   selector: 'app-booking-cancellation',
@@ -28,7 +28,6 @@ export class BookingCancellationsComponent implements OnInit {
   }
 
   refreshConfirmedBookings(): void {
-    // Refresh the list of confirmed bookings after cancellation
     this.bookingService.getConfirmedBookings().subscribe(
       bookings => {
         this.confirmedBookings = bookings;

@@ -41,7 +41,10 @@
         [(ngModel)]="returnDate"
       />
     </div>
-    <button type="button" (click)="searchFlights(source, destination)">
+    <button
+      type="button"
+      (click)="searchFlights(source, destination, departureDate)"
+    >
       Search
     </button>
   </form>

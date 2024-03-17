@@ -5,7 +5,7 @@
 }
 
 header {
-  background-color: #333;
+  background-color: transparent;
   color: #fff;
   padding: 10px 20px;
   display: flex;
@@ -16,18 +16,27 @@ header {
     color: #fff;
     text-decoration: none;
   }
-}
 
-header h1 {
-  margin: 0;
-}
+  nav {
+    display: flex;
+    gap: 10px;
 
-nav button {
-  background-color: transparent;
-  border: none;
-  color: #fff;
-  cursor: pointer;
-  margin-left: 10px;
+    button {
+      padding: 8px 20px;
+      background-color: #007bff;
+      color: #ffffff;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+    }
+
+    button:hover {
+      background-color: #004080;
+    }
+  }
 }
 
 .admin-dashboard {
@@ -40,14 +49,28 @@ nav button {
 }
 
 .admin-actions {
-  margin-top: 20px;
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
 .admin-actions button {
-  background-color: #007bff;
+  background-color: #449eff;
   color: #fff;
   border: none;
   padding: 10px 20px;
+  border-radius: 10px;
   margin-right: 10px;
   cursor: pointer;
+  width: 200px;
+  height: 200px;
+  transition: background-color 0.3s ease;
+  font-size: 1.2rem;
+  font-weight: bolder;
+}
+
+.admin-actions button:hover {
+  background-color: #004080;
 }

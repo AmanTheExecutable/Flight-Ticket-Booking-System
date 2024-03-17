@@ -1,29 +1,40 @@
+<h2>Manage My Account</h2>
+
 <div class="manage-account">
-  <h2>Manage My Account</h2>
   <div class="user-details" [formGroup]="userForm">
     <h3>User Details</h3>
     <div>
-      <p>Name: {{ userDetails.username }}</p>
+      <p>
+        Name: <span>{{ userDetails.username }}</span>
+      </p>
       <div *ngIf="editMode">
         <input type="text" formControlName="username" />
       </div>
 
-      <p>Email: {{ userDetails.email }}</p>
+      <p>
+        Email: <span>{{ userDetails.email }}</span>
+      </p>
       <div *ngIf="editMode">
         <input type="email" formControlName="email" />
       </div>
 
-      <p>Address: {{ userDetails.address }}</p>
+      <p>
+        Address: <span>{{ userDetails.address }}</span>
+      </p>
       <div *ngIf="editMode">
         <input type="text" formControlName="address" />
       </div>
 
-      <p>Phone: {{ userDetails.phoneNo }}</p>
+      <p>
+        Phone: <span>{{ userDetails.phoneNo }}</span>
+      </p>
       <div *ngIf="editMode">
         <input type="text" formControlName="phoneNo" />
       </div>
 
-      <p>DOB: {{ userDetails.dob }}</p>
+      <p>
+        DOB: <span>{{ userDetails.dob }}</span>
+      </p>
       <div *ngIf="editMode">
         <input type="date" formControlName="dob" />
       </div>
@@ -36,24 +47,47 @@
   </div>
 
   <div class="bookings">
-    <h3>My Bookings</h3>
-
-    <!-- confirmed bookings -->
+    <h1>My Bookings</h1>
     <div *ngIf="confirmedBookings && confirmedBookings.length">
       <h4>Confirmed Bookings</h4>
       <ul>
         <li *ngFor="let booking of confirmedBookings">
-          Flight Number: {{ booking.travelID }} | Date:
-          {{ booking.departureDate }} | Destination: {{ booking.destination }}
+          <p>
+            Booking ID: <span>{{ booking.travelID }}</span>
+          </p>
+          <p>
+            AirLine: <span>{{ booking.company }}</span>
+          </p>
+          <p>
+            Departure: <span>{{ booking.departureDate }}</span>
+          </p>
+          <p>
+            Arrival: <span>{{ booking.arrivalDate }}</span>
+          </p>
+          <p>
+            Price: <span>{{ booking.price }}</span>
+          </p>
         </li>
       </ul>
-
       <div *ngIf="pastBookings && pastBookings.length">
         <h4>Past Bookings</h4>
         <ul>
           <li *ngFor="let booking of pastBookings">
-            Flight Number: {{ booking.travelID }} | Date:
-            {{ booking.departureDate }} | Destination: {{ booking.destination }}
+            <p>
+              Booking ID: <span>{{ booking.travelID }}</span>
+            </p>
+            <p>
+              AirLine: <span>{{ booking.company }}</span>
+            </p>
+            <p>
+              Departure: <span>{{ booking.departureDate }}</span>
+            </p>
+            <p>
+              Arrival: <span>{{ booking.arrivalDate }}</span>
+            </p>
+            <p>
+              Price: <span>{{ booking.price }}</span>
+            </p>
           </li>
         </ul>
       </div>
@@ -61,8 +95,21 @@
         <h4>Future Bookings</h4>
         <ul>
           <li *ngFor="let booking of futureBookings">
-            Flight Number: {{ booking.travelID }} | Date:
-            {{ booking.departureDate }} | Destination: {{ booking.destination }}
+            <p>
+              Booking ID: <span>{{ booking.travelID }}</span>
+            </p>
+            <p>
+              AirLine: <span>{{ booking.company }}</span>
+            </p>
+            <p>
+              Departure: <span>{{ booking.departureDate }}</span>
+            </p>
+            <p>
+              Arrival: <span>{{ booking.arrivalDate }}</span>
+            </p>
+            <p>
+              Price: <span>{{ booking.price }}</span>
+            </p>
           </li>
         </ul>
       </div>

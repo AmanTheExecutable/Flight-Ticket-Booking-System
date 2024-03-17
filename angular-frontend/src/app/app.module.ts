@@ -8,7 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UpcomingTripsComponent } from './dashboard/upcoming-trips/upcoming-trips.component';
 import { ManageAccountComponent } from './dashboard/manage-account/manage-account.component';
-import { BookingCancellationsComponent } from './booking-cancellations/booking-cancellations.component';
+import { BookingCancellationsComponent } from './dashboard/booking-cancellations/booking-cancellations.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { FlightSearchComponent } from './flight-search/flight-search.component';
 import { FlightListComponent } from './flight-list/flight-list.component';
@@ -42,7 +42,7 @@ const routes: Routes = [
   {path:'confirm-booking', component:ConfirmBookingComponent},
   {path:'payment', component:PaymentComponent},
   {path:'payment-confirmation', component:PaymentConfirmationComponent},
-    {path:'payment-failed', component:PaymentFailedComponent}
+  {path:'payment-failed', component:PaymentFailedComponent}
 ];
 
 @NgModule({

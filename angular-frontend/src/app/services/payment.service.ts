@@ -7,8 +7,6 @@ import { Observable } from 'rxjs';
 })
 export class PaymentService {
 
-
-
   private totalPrice: number;
 
   constructor(private bookingService: BookingService) { }
@@ -22,14 +20,6 @@ export class PaymentService {
   }
 
   saveConfirmedBooking(flight: Flight): Observable<any> {
-    this.bookingService.getConfirmedBookings().subscribe(
-      bookings => {
-        console.log(bookings);
-      },
-      error => {
-        console.error('Failed to fetch confirmed bookings:', error);
-      }
-    );
     return this.bookingService.bookFlight(flight);
     
   }

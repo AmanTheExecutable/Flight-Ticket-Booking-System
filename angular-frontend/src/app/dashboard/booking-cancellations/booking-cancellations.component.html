@@ -1,0 +1,23 @@
+<div class="confirmed-bookings">
+  <h2>Confirmed Bookings</h2>
+  <ul>
+    <li *ngFor="let booking of confirmedBookings">
+      <p>
+        Booking ID: <span>{{ booking.travelID }}</span>
+      </p>
+      <p>
+        AirLine: <span>{{ booking.company }}</span>
+      </p>
+      <p>
+        Departure: <span>{{ booking.departureDate }}</span>
+      </p>
+      <p>
+        Arrival: <span>{{ booking.arrivalDate }}</span>
+      </p>
+      <p>
+        Price: <span>{{ booking.price }}</span>
+      </p>
+      <button (click)="cancelBooking(booking.travelID)">Cancel Booking</button>
+    </li>
+  </ul>
+</div>

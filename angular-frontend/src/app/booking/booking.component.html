@@ -7,7 +7,7 @@
     <p>Arrival: {{ flight.arrivalTime }}</p>
 
     <label>Number of passengers: {{ passengers.length }}</label>
-    <p>Price: ₹{{ flight.economy_class_price * passengers.length }}</p>
+    <p>Price: ₹{{ calculateTotalPrice() }}</p>
   </div>
   <div class="passenger">
     <div *ngFor="let passenger of passengers.controls; let i = index">
@@ -44,10 +44,10 @@
         />
         <label
           >Seat Preference:
-          <select [formControl]="passenger.controls['seat']">
-            <option value="window">Window</option>
-            <option value="middle">Middle</option>
-            <option value="aisle">Aisle</option>
+          <select [formControl]="passenger.controls['seatCategory']">
+            <option value="economy">Economy</option>
+            <option value="business">Business</option>
+            <option value="firstClass">First Class</option>
           </select>
         </label>
 

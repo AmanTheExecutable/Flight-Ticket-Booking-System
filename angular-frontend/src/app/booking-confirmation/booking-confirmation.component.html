@@ -9,7 +9,7 @@
     <p>Departure: {{ flight.departureDate }} {{ flight.departureTime }}</p>
     <p>Arrival: {{ flight.arrivalDate }} {{ flight.arrivalTime }}</p>
     <p>Duration: {{ calculateDuration() }}</p>
-    <p>Price: ₹{{ flight.economy_class_price * passengersData.length }}</p>
+    <p>Price: ₹{{ totalAmount }}</p>
   </div>
 
   <!-- Passenger Details -->
