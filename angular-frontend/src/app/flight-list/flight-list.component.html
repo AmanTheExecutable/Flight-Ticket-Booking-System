@@ -1,0 +1,18 @@
+<h2>Available Flights from {{ source }} to {{ destination }}</h2>
+<div class="flight-list">
+  <ul>
+    <li *ngFor="let flight of flights" class="flight-card">
+      <div class="flight-info">
+        <h2 class="airline-name">{{ flight.company }}</h2>
+        <p class="departure">Departure: {{ flight.departureTime }}</p>
+        <p class="duration">Duration: {{ flight.duration }}</p>
+        <p class="arrival">Arrival: {{ flight.arrivalTime }}</p>
+        <p class="price">Price: ₹{{ flight.price }}</p>
+        <p class="available-seats">
+          Available Seats: {{ flight.availableSeats }}
+        </p>
+        <button class="book-button" (click)="bookFlight(flight)">Book</button>
+      </div>
+    </li>
+  </ul>
+</div>

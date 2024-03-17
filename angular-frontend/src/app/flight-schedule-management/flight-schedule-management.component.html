@@ -1,0 +1,78 @@
+<div class="flight-schedule-management">
+  <h2>Flight Schedule Management</h2>
+  <form [formGroup]="flightForm" (ngSubmit)="submitFlight()">
+    <div class="form-group">
+      <label for="id">Flight Number/Id:</label>
+      <input type="text" id="id" formControlName="id" required />
+      <label for="company">Company:</label>
+      <input type="text" id="company" formControlName="company" required />
+    </div>
+    <div class="form-group">
+      <label for="source">Source:</label>
+      <input type="text" id="source" formControlName="source" required />
+    </div>
+    <div class="form-group">
+      <label for="destination">Destination:</label>
+      <input
+        type="text"
+        id="destination"
+        formControlName="destination"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="departureDate">Departure Date:</label>
+      <input
+        type="date"
+        id="departureDate"
+        formControlName="departureDate"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="departureTime">Departure Time:</label>
+      <input
+        type="time"
+        id="departureTime"
+        formControlName="departureTime"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="duration">Duration:</label>
+      <input type="text" id="duration" formControlName="duration" required />
+    </div>
+    <div class="form-group">
+      <label for="arrivalTime">Arrival Time:</label>
+      <input
+        type="time"
+        id="arrivalTime"
+        formControlName="arrivalTime"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="arrivalDate">Arrival Date:</label>
+      <input
+        type="date"
+        id="arrivalDate"
+        formControlName="arrivalDate"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="price">Price:</label>
+      <input type="number" id="price" formControlName="price" required />
+    </div>
+    <div class="form-group">
+      <label for="availableSeats">Available Seats:</label>
+      <input
+        type="number"
+        id="availableSeats"
+        formControlName="availableSeats"
+        required
+      />
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+</div>

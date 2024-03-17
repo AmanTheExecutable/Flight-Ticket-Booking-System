@@ -1,0 +1,92 @@
+<div class="registration-container">
+  <h2>Registration</h2>
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="username">Username:</label>
+      <input type="text" id="username" formControlName="username" required />
+      <div
+        *ngIf="
+          registrationForm.get('username').invalid &&
+          registrationForm.get('username').touched
+        "
+        class="error-message"
+      >
+        Please enter a username.
+      </div>
+      <label for="email">Email:</label>
+      <input type="email" id="email" formControlName="email" required />
+      <div
+        *ngIf="
+          registrationForm.get('email').invalid &&
+          registrationForm.get('email').touched
+        "
+        class="error-message"
+      >
+        Please enter a valid email address.
+      </div>
+      <label for="phone">Phone:</label>
+      <input type="text" id="phone" formControlName="phone" required />
+      <div
+        *ngIf="
+          registrationForm.get('phone').invalid &&
+          registrationForm.get('phone').touched
+        "
+        class="error-message"
+      >
+        Please enter a valid phone number.
+      </div>
+      <label for="password">Password:</label>
+      <input
+        type="password"
+        id="password"
+        formControlName="password"
+        required
+      />
+      <div
+        *ngIf="
+          registrationForm.get('password').invalid &&
+          registrationForm.get('password').touched
+        "
+        class="error-message"
+      >
+        Please enter a password.
+      </div>
+      <label for="confirmPassword">Confirm Password:</label>
+      <input
+        type="password"
+        id="confirmPassword"
+        formControlName="confirmPassword"
+        required
+      />
+      <div
+        *ngIf="
+          registrationForm.get('confirmPassword').invalid &&
+          registrationForm.get('confirmPassword').touched
+        "
+        class="error-message"
+      >
+        Please confirm your password.
+      </div>
+      <div
+        *ngIf="
+          registrationForm.get('confirmPassword').value !==
+          registrationForm.get('password').value
+        "
+        class="error-message"
+      >
+        Passwords do not match.
+      </div>
+      <label for="otp">OTP</label>
+      <input type="text" formControlName="otp" id="otp" required />
+      <button type="button">Send OTP</button>
+      <div class="btn-group">
+        <button type="submit" [disabled]="registrationForm.invalid">
+          Register
+        </button>
+        <button type="button" id="cancel-btn" (click)="onCancel()">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

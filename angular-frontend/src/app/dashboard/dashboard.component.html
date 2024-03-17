@@ -1,0 +1,31 @@
+<header>
+  <a routerLink="/user-dashboard"><h1>King Flyer</h1></a>
+
+  <!-- <div class="search-box"><input type="text" /> <button>Search</button></div> -->
+  <nav>
+    <button *ngIf="!isLoggedIn" (click)="navigateTo('login')">Login</button>
+    <button *ngIf="isLoggedIn" (click)="logout()">Logout</button>
+  </nav>
+</header>
+
+<div class="dashboard">
+  <!-- Searching a flight with given source and destination with date and number of passengers -->
+  <app-flight-search *ngIf="!isLoggedIn"></app-flight-search>
+  <div *ngIf="isLoggedIn">
+    <app-flight-search></app-flight-search>
+    <div class="dashboard-section" (click)="navigateTo('upcoming-trips')">
+      <h3>View Upcoming Trips</h3>
+    </div>
+
+    <div class="dashboard-section" (click)="navigateTo('manage-account')">
+      <h3>Manage Account</h3>
+    </div>
+
+    <div
+      class="dashboard-section"
+      (click)="navigateTo('booking-cancellations')"
+    >
+      <h3>Booking Cancellations</h3>
+    </div>
+  </div>
+</div>
