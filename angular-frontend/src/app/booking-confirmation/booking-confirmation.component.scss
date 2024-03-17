@@ -1,0 +1,30 @@
+/* confirm-booking.component.scss */
+.booking-details {
+  text-align: center;
+
+  .flight-details,
+  .passenger-details {
+    margin-bottom: 20px;
+  }
+
+  .passenger-info {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  button {
+    margin-right: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    transition: background-color 0.3s;
+  }
+
+  button:hover {
+    background-color: #0056b3;
+  }
+}

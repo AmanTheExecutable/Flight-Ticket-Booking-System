@@ -24,12 +24,12 @@
       >
         Please enter a valid email address.
       </div>
-      <label for="phone">Phone:</label>
-      <input type="text" id="phone" formControlName="phone" required />
+      <label for="phoneNo">Phone:</label>
+      <input type="text" id="phone" formControlName="phoneNo" required />
       <div
         *ngIf="
-          registrationForm.get('phone').invalid &&
-          registrationForm.get('phone').touched
+          registrationForm.get('phoneNo').invalid &&
+          registrationForm.get('phoneNo').touched
         "
         class="error-message"
       >

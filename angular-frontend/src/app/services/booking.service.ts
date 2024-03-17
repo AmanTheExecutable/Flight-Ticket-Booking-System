@@ -14,7 +14,19 @@ export class BookingService {
     { travelID: 2, company: 'IndiGo', departureDate: '2024-02-20', source: 'Mumbai', destination: 'Delhi', price: 4500 },
   ];
  confirmedBookings = [
-  { travelID: 3, company: 'SpiceJet', departureDate: '2024-03-10', source: 'Chennai', destination: 'Bangalore', price: 3500 },
+  { travelID: 1, company: 'SpiceJet', departureDate: '2024-03-10', source: 'Chennai', destination: 'Bangalore', price: 3500 },
+  { travelID: 2, company: 'Vistara', departureDate: '2024-04-05', source: 'Kolkata', destination: 'Mumbai', price: 6000 },
+  { travelID: 3, company: 'GoAir', departureDate: '2024-05-20', source: 'Delhi', destination: 'Chennai', price: 4000 },
+  { travelID: 4, company: 'AirAsia', departureDate: '2024-06-15', source: 'Mumbai', destination: 'Kolkata', price: 5500 },
+  { travelID: 5, company: 'Air India', departureDate: '2024-07-10', source: 'Chennai', destination: 'Delhi', price: 3500 },
+  { travelID: 6, company: 'IndiGo', departureDate: '2024-08-05', source: 'Kolkata', destination: 'Mumbai', price: 6000 },
+  { travelID: 7, company: 'SpiceJet', departureDate: '2024-09-20', source: 'Delhi', destination: 'Chennai', price: 4000 },
+  { travelID: 8, company: 'Vistara', departureDate: '2024-10-15', source: 'Mumbai', destination: 'Kolkata', price: 5500 },
+  { travelID: 9, company: 'GoAir', departureDate: '2024-11-10', source: 'Chennai', destination: 'Delhi', price: 3500 },
+  { travelID: 10, company: 'AirAsia', departureDate: '2024-12-05', source: 'Kolkata', destination: 'Mumbai', price: 6000 },
+  { travelID: 11, company: 'Air India', departureDate: '2025-01-20', source: 'Delhi', destination: 'Chennai', price: 4000 },
+  { travelID: 12, company: 'IndiGo', departureDate: '2025-02-15', source: 'Mumbai', destination: 'Kolkata', price: 5500 },
+  { travelID: 13, company: 'SpiceJet', departureDate: '2025-03-10', source: 'Chennai', destination: 'Delhi', price: 3500 },
   ];
 
   constructor() { }

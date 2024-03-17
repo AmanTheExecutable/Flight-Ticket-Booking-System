@@ -1,0 +1,42 @@
+<div class="payment-container">
+  <h1>Amount to be paid: {{ getTotalPrice() }}</h1>
+  <form (ngSubmit)="pay()">
+    <div class="card-details">
+      <div class="form-group">
+        <label for="card-number">Card Number:</label>
+        <input
+          type="text"
+          id="card-number"
+          name="cardNumber"
+          [(ngModel)]="cardNumber"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="card-holder">Card Holder:</label>
+        <input
+          type="text"
+          id="card-holder"
+          name="cardHolder"
+          [(ngModel)]="cardHolder"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="expiry-date">Expiry Date:</label>
+        <input
+          type="text"
+          id="expiry-date"
+          name="expiryDate"
+          [(ngModel)]="expiryDate"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="cvv">CVV:</label>
+        <input type="text" id="cvv" name="cvv" [(ngModel)]="cvv" required />
+      </div>
+    </div>
+    <button class="pay-button" type="submit">Pay</button>
+  </form>
+</div>

@@ -24,12 +24,21 @@
       />
     </div>
     <div class="form-group">
-      <label for="numPersons">Number of Persons:</label>
+      <label for="roundTrip">Round Trip:</label>
       <input
-        type="number"
-        id="numPersons"
-        name="numPersons"
-        [(ngModel)]="numPersons"
+        type="checkbox"
+        id="roundTrip"
+        name="roundTrip"
+        [(ngModel)]="roundTrip"
+      />
+    </div>
+    <div *ngIf="roundTrip" class="form-group">
+      <label for="returnDate">Date of Return:</label>
+      <input
+        type="date"
+        id="returnDate"
+        name="returnDate"
+        [(ngModel)]="returnDate"
       />
     </div>
     <button type="button" (click)="searchFlights(source, destination)">
@@ -37,9 +46,9 @@
     </button>
   </form>
 </div>
-<app-flight-list
+<!-- <app-flight-list
   *ngIf="filteredFlights.length > 0"
   [flights]="filteredFlights"
   [source]="source"
   [destination]="destination"
-></app-flight-list>
+></app-flight-list> -->

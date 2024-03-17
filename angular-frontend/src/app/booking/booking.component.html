@@ -3,22 +3,70 @@
   <div class="flight-details">
     <p>Airline: {{ flight.company }}</p>
     <p>Departure: {{ flight.departureTime }}</p>
-    <p>Duration: {{ flight.duration }}</p>
+    <p>Duration: {{ calculateDuration() }}</p>
     <p>Arrival: {{ flight.arrivalTime }}</p>
 
-    <label for="seats"></label>
-    <input
-      type="number"
-      id="seats"
-      name="seats"
-      min="1"
-      max="{{ flight.availableSeats }}"
-      [(ngModel)]="seats"
-      required
-    />
-    <p>Price: ₹{{ flight.price * seats }}</p>
+    <label>Number of passengers: {{ passengers.length }}</label>
+    <p>Price: ₹{{ flight.economy_class_price * passengers.length }}</p>
   </div>
-  <!-- Add booking form or confirmation message here -->
-  <button (click)="confirmBooking()">Confirm Booking</button>
-  <button (click)="cancelBooking()">Cancel</button>
+  <div class="passenger">
+    <div *ngFor="let passenger of passengers.controls; let i = index">
+      <h3>Passenger {{ i + 1 }}</h3>
+      <div class="passenger-details">
+        <label for="name{{ i }}">Name:</label>
+        <input
+          type="text"
+          id="name{{ i }}"
+          [formControl]="passenger.controls['name']"
+          required
+        />
+        <label for="age{{ i }}">Age:</label>
+        <input
+          type="text"
+          id="age{{ i }}"
+          [formControl]="passenger.controls['age']"
+          required
+        />
+        <label for="email{{ i }}">Email:</label>
+        <input
+          type="email"
+          id="email{{ i }}"
+          [formControl]="passenger.controls['email']"
+          required
+        />
+        <!-- address -->
+        <label for="address{{ i }}">Address:</label>
+        <input
+          type="text"
+          id="address{{ i }}"
+          [formControl]="passenger.controls['address']"
+          required
+        />
+        <label
+          >Seat Preference:
+          <select [formControl]="passenger.controls['seat']">
+            <option value="window">Window</option>
+            <option value="middle">Middle</option>
+            <option value="aisle">Aisle</option>
+          </select>
+        </label>
+
+        <button
+          (click)="removePassenger(i)"
+          [ngStyle]="{
+            'background-color': passengers.length === 1 ? 'grey' : 'red',
+            cursor: passengers.length === 1 ? 'not-allowed' : 'pointer'
+          }"
+          [disabled]="passengers.length === 1"
+        >
+          Remove Passenger
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-btns">
+    <button (click)="addPassenger()">Add Passenger</button>
+    <button (click)="confirmBooking()">Confirm Booking</button>
+    <button (click)="cancelBooking()">Cancel</button>
+  </div>
 </div>

@@ -1,18 +1,25 @@
-<h2>Available Flights from {{ source }} to {{ destination }}</h2>
-<div class="flight-list">
-  <ul>
-    <li *ngFor="let flight of flights" class="flight-card">
-      <div class="flight-info">
-        <h2 class="airline-name">{{ flight.company }}</h2>
-        <p class="departure">Departure: {{ flight.departureTime }}</p>
-        <p class="duration">Duration: {{ flight.duration }}</p>
-        <p class="arrival">Arrival: {{ flight.arrivalTime }}</p>
-        <p class="price">Price: ₹{{ flight.price }}</p>
-        <p class="available-seats">
-          Available Seats: {{ flight.availableSeats }}
-        </p>
-        <button class="book-button" (click)="bookFlight(flight)">Book</button>
-      </div>
-    </li>
-  </ul>
+<div class="container">
+  <h1>Available Flights from {{ source }} to {{ destination }}</h1>
+  <div class="flight-list">
+    <ul>
+      <li *ngFor="let flight of flights" class="flight-card">
+        <div class="flight-info">
+          <h2 class="airline-name">{{ flight.company }}</h2>
+          <p class="departure">Departure: {{ flight.departureTime }}</p>
+          <p class="duration">Duration: {{ calculateDuration(flight) }}</p>
+          <p class="arrival">Arrival: {{ flight.arrivalTime }}</p>
+          <p class="price-economy price">
+            Economy Class: ₹{{ flight.economy_class_price }}
+          </p>
+          <p class="price-business price">
+            Business Class: ₹{{ flight.business_class_price }}
+          </p>
+          <p class="price-first-class price">
+            First Class: ₹{{ flight.first_class_price }}
+          </p>
+          <button class="book-button" (click)="bookFlight(flight)">Book</button>
+        </div>
+      </li>
+    </ul>
+  </div>
 </div>

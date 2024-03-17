@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Flight } from '../modals/flight.modal';
 import { BookingService } from '../services/booking.service';
+import { BookingDataService } from '../services/booking-data.service';
 
 @Component({
   selector: 'app-booking',
@@ -10,29 +12,76 @@ import { BookingService } from '../services/booking.service';
 })
 export class BookingComponent implements OnInit {
   flight: Flight;
+  duration: string;
   seats: number = 1;
+  bookingForm: FormGroup;
 
-  constructor(private route: ActivatedRoute,private bookingService: BookingService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private fb: FormBuilder,
+    private bookingService: BookingService,
+    private router: Router,
+    private bookingDataService: BookingDataService
+  ) { }
 
   ngOnInit(): void {
     this.flight = history.state.flight;
+    
+    this.initializeForm();
+
+    this.duration = this.calculateDuration();
   }
 
-  confirmBooking(): void {
-    this.bookingService.bookFlight(this.flight).subscribe(
-      (response) => {
-        console.log(response.message);
-      },
-      error => {
-        console.error('Error booking flight:', error);
-      }
-    );
-    console.log('Booking confirmed:', this.flight);
+  initializeForm(): void {
+    this.bookingForm = this.fb.group({
+      passengers: this.fb.array([])
+    });
+    this.addPassenger();
   }
+
+  get passengers(): FormArray {
+    return this.bookingForm.get('passengers') as FormArray;
+  }
+
+  addPassenger(): void {
+    this.passengers.push(this.fb.group({
+      name: ['', Validators.required],
+      age: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      address: ['', Validators.required],
+
+      seat: [this.seats++],
+    }));
+  }
+
+  removePassenger(index: number): void {
+    this.passengers.removeAt(index);
+  }
+
+  confirmBooking() {
+    const passengersData = this.bookingForm.get('passengers').value;
+    const flight = this.flight;
+  
+    this.bookingDataService.setPassengersData(passengersData);
+    this.bookingDataService.setFlight(flight);
+  
+    this.router.navigate(['/confirm-booking']);
+  }
+  
 
   cancelBooking(): void {
     console.log('Booking cancelled:', this.flight);
   }
 
-
+  calculateDuration(): string {
+    const departureDateTime = new Date(`${this.flight.departureDate}T${this.flight.departureTime}:00`);
+    const arrivalDateTime = new Date(`${this.flight.arrivalDate}T${this.flight.arrivalTime}:00`);
+  
+    const duration = arrivalDateTime.getTime() - departureDateTime.getTime();
+    const hours = Math.floor(duration / (1000 * 60 * 60));
+    const minutes = Math.floor((duration % (1000 * 60 * 60)) / (1000 * 60));
+  
+    return `${hours}h ${minutes}m`;
+  }
+  
 }

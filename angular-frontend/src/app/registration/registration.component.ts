@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserService } from '../services/user.service' // Import your user service here
+import { UserService } from '../services/user.service'
 import { Router } from '@angular/router';
 
 @Component({
@@ -19,7 +19,8 @@ export class RegistrationComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       phoneNo: ['', Validators.required],
       password: ['', Validators.required],
-      confirmPassword: ['', Validators.required]
+      confirmPassword: ['', Validators.required],
+      otp: ['', Validators.required]
 
     });
   }

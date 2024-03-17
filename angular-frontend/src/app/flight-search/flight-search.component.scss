@@ -1,11 +1,12 @@
 .flight-search {
-  max-width: 400px;
+  max-width: 800px;
   margin: 0 auto;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  background-color: #f9f9f9;
+  background-color: #f9f9f9c9;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 60px;
 
   h2 {
     font-size: 24px;
@@ -13,8 +14,16 @@
     text-align: center;
   }
 
+  form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+  }
+
   .form-group {
-    margin-bottom: 15px;
+    height: 50px;
 
     label {
       display: block;
@@ -25,11 +34,16 @@
     input[type="text"],
     input[type="date"],
     input[type="number"] {
-      width: 100%;
       padding: 8px;
       font-size: 16px;
       border: 1px solid #ccc;
       border-radius: 5px;
+    }
+
+    input[type="checkbox"] {
+      // increase the size
+      transform: scale(1.5);
+      margin-top: 13px;
     }
   }
 

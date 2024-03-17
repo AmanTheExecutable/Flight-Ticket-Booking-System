@@ -1,0 +1,115 @@
+.booking {
+  background: linear-gradient(to bottom, #66b2ff, #ffffff);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  padding: 20px;
+
+  h2 {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .flight-details {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 20px;
+    text-align: center;
+    font-size: 1.2rem;
+
+    p {
+      margin: 10px 0;
+    }
+
+    label {
+      font-weight: bold;
+    }
+  }
+
+  .passenger {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    h3 {
+      text-align: center;
+    }
+
+    .passenger-details {
+      margin-bottom: 10px;
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      input {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+      }
+
+      button {
+        background-color: #000000;
+        color: #fff;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
+    }
+  }
+
+  .bottom-btns {
+    margin-top: 30px;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+
+    button {
+      background: #000000;
+      color: #fff;
+      padding: 10px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #007bff;
+        color: #fff;
+      }
+
+      &:last-child {
+        background-color: #dc3545;
+
+        &:hover {
+          background-color: #c82333;
+        }
+      }
+    }
+
+    button[disabled="disabled"],
+    button:disabled {
+      background-color: #ccc;
+      color: #000;
+      cursor: block;
+    }
+  }
+}

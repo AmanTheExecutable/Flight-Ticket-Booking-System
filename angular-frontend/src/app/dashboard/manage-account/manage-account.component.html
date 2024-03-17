@@ -52,8 +52,8 @@
         <h4>Past Bookings</h4>
         <ul>
           <li *ngFor="let booking of pastBookings">
-            Flight Number: {{ booking.flightNumber }} | Date:
-            {{ booking.date }} | Destination: {{ booking.destination }}
+            Flight Number: {{ booking.travelID }} | Date:
+            {{ booking.departureDate }} | Destination: {{ booking.destination }}
           </li>
         </ul>
       </div>
@@ -61,8 +61,8 @@
         <h4>Future Bookings</h4>
         <ul>
           <li *ngFor="let booking of futureBookings">
-            Flight Number: {{ booking.flightNumber }} | Date:
-            {{ booking.date }} | Destination: {{ booking.destination }}
+            Flight Number: {{ booking.travelID }} | Date:
+            {{ booking.departureDate }} | Destination: {{ booking.destination }}
           </li>
         </ul>
       </div>

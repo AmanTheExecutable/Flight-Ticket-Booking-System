@@ -1,0 +1,30 @@
+<!-- confirm-booking.component.html -->
+<div class="booking-details">
+  <h2>Confirm Booking</h2>
+
+  <!-- Flight Details -->
+  <div class="flight-details">
+    <h3>Flight Details</h3>
+    <p>Airline: {{ flight.company }}</p>
+    <p>Departure: {{ flight.departureDate }} {{ flight.departureTime }}</p>
+    <p>Arrival: {{ flight.arrivalDate }} {{ flight.arrivalTime }}</p>
+    <p>Duration: {{ calculateDuration() }}</p>
+    <p>Price: ₹{{ flight.economy_class_price * passengersData.length }}</p>
+  </div>
+
+  <!-- Passenger Details -->
+  <div class="passenger-details">
+    <h3>Passenger Details</h3>
+    <div *ngFor="let passenger of passengersData">
+      <div class="passenger-info">
+        <p>Name: {{ passenger.name }}</p>
+        <p>Age: {{ passenger.age }}</p>
+        <p>Email: {{ passenger.email }}</p>
+        <p>Address: {{ passenger.address }}</p>
+        <p>Seat: {{ passenger.seat }}</p>
+      </div>
+    </div>
+  </div>
+  <button (click)="payment()">Proceed To Pay</button>
+  <button (click)="cancelBooking()">Cancel</button>
+</div>

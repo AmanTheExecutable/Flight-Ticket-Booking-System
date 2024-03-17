@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Flight } from '../modals/flight.modal';
 import { FlightService } from '../services/flight.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-flight-search',
@@ -12,31 +13,44 @@ export class FlightSearchComponent {
   source: string;
   destination: string;
   departureDate: Date;
-  numPersons: number;
+  roundTrip: boolean;
   userform: FormGroup;
-  filteredFlights: Flight[] = [];
 
-  constructor(private formBuilder: FormBuilder, private flightService: FlightService) {
+  constructor(
+    private formBuilder: FormBuilder, 
+    private flightService: FlightService,
+    private router: Router,
+  ) {
     this.userform = this.formBuilder.group({
       source: [''],
       destination: [''],
       departureDate: [''],
-      numPersons: ['']
+      roundTrip: ['']
     });
   }
 
-  searchFlights(source:string, destination:string): void {
-    console.log(this.flightService.flightSchedules[0]);
-    this.flightService.searchFlights(source,destination).subscribe(
+  searchFlights(source: string, destination: string): void {
+    this.flightService.searchFlights(source, destination).subscribe(
       (flights: Flight[]) => {
-        this.filteredFlights = flights;
+        // Save filtered flights in FlightSearchService
+        this.flightService.setFilteredFlights(flights);
+        // Navigate to app-flight-list route
+        this.navigateToFlightList(source, destination);
       },
       error => {
         console.error('Error searching for flights:', error);
       }
     );
+  }
 
-    console.log(this.filteredFlights)
+  navigateToFlightList(source: string, destination: string): void {
+    console.log('Navigating to flight list')
+    this.router.navigate(['/flight-search-list'], {
+      queryParams: {
+        source,
+        destination
+      }
+    });
   }
 
  
