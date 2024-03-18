@@ -27,18 +27,20 @@ export class RegistrationComponent implements OnInit {
     if (this.registrationForm.invalid) {
       return;
     }
-    const formData = JSON.stringify(this.registrationForm.value);
-    console.log(formData)
-    const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-    this.userService.register(formData).subscribe(
-      response => {
-        console.log('Registration successful:', response);
-        this.router.navigate(['/login'], { queryParams: { returnUrl } });
-      },
-      error => {
-        console.error('Registration failed:', error);
+    const { name, email, phoneNo, password } = this.registrationForm.value;
+
+    const formData = {
+      name,
+      email,
+      phone_no: phoneNo,
+      password
+    };
+
+    this.userService.register(formData).subscribe((response) => {
+      if (response) {
+        this.router.navigate(['/login']);
       }
-    );
+    });
   }
 
   onCancel(): void {

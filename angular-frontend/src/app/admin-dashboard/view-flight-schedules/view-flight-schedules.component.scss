@@ -1,9 +1,13 @@
-// Container for flight schedules
+h2 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
 .flight-schedules-container {
   margin-top: 20px;
 }
 
-// Individual flight schedule card
 .flight-schedule-card {
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -12,23 +16,19 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-// Title styles
 .flight-schedule-title {
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 10px;
 }
 
-// Flight details styles
 .flight-detail {
   margin-bottom: 5px;
 
-  // Label styles
   .label {
     font-weight: bold;
   }
 
-  // Value styles
   .value {
     margin-left: 10px;
     color: #333;

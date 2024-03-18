@@ -26,10 +26,4 @@ export class ViewFlightBookingsComponent implements OnInit {
       this.confirmedBookings = bookings;
     });
   }
-
-  cancelBooking(bookingId: number): void {
-    if (window.confirm('Are you sure you want to cancel this booking?')) {
-      this.bookingService.cancelBooking(bookingId);
-    }
-  }
 }

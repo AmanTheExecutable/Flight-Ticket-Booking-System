@@ -23,6 +23,7 @@ export class UpdateFlightSchedulesComponent implements OnInit {
     if (flightId) {
       this.flightService.getFlightById(flightId).subscribe(flight => {
         this.selectedFlight = flight;
+        console.log(this.selectedFlight)
       });
     } else {
       this.selectedFlight = null;

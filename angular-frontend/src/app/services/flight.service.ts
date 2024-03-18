@@ -1,22 +1,22 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable, catchError, of, tap } from 'rxjs';
 import { Flight } from '../modals/flight.modal';
-import { HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { CommonService } from './common.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FlightService {
   flightSchedules: Flight[] = [];
-   
+
   fetchFlightSchedules(): Observable<any> {
-    return this.http.get('http://192.168.103.147:8080/flightReports');
+    return this.http.get(this.commonService.baseURL + 'flightReports');
   }
 
-  constructor(private http: HttpClient) { }  
+  constructor(private http: HttpClient, private commonService: CommonService) {}
   private filteredFlightsSubject = new BehaviorSubject<Flight[]>([]);
   filteredFlights$ = this.filteredFlightsSubject.asObservable();
-
 
   setFilteredFlights(flights: Flight[]): void {
     this.filteredFlightsSubject.next(flights);
@@ -26,39 +26,58 @@ export class FlightService {
     return this.filteredFlightsSubject.getValue();
   }
 
-
-  addFlightSchedule(flight: Flight): void {
+  addFlightSchedule(flight: any): void {
     this.flightSchedules.push(flight);
-    console.log('Flight added successfully', this.flightSchedules[0]);
+    this.http
+      .post<any>(this.commonService.baseURL + 'addSchedule', flight)
+      .subscribe((response) => {
+        console.log(response);
+      });
   }
 
-
-  searchFlights(source: string, destination: string, date: string): Observable<Flight[]> {
-    
-    const filteredFlights = this.flightSchedules.filter(flight =>
-      flight.source.toLowerCase() === source.toLowerCase() &&
-      flight.destination.toLowerCase() === destination.toLowerCase() &&
-      flight.departureDate >= date
+  searchFlights(
+    source: string,
+    destination: string,
+    date: string
+  ): Observable<Flight[]> {
+    const filteredFlights = this.flightSchedules.filter(
+      (flight) =>
+        flight.source.toLowerCase() === source.toLowerCase() &&
+        flight.destination.toLowerCase() === destination.toLowerCase() &&
+        flight.departureDate >= date
     );
     return of(filteredFlights);
   }
-  
-  
 
   getFlightById(ide: number): Observable<Flight> {
-    const flight = this.flightSchedules.find(flight => flight.id == ide);
+    const flight = this.flightSchedules.find((flight) => flight.id == ide);
     return of(flight);
   }
 
   updateFlightDetails(updatedFlight: Flight): Observable<string> {
-    const index = this.flightSchedules.findIndex(flight => flight.id == updatedFlight.id);
-    if (index != -1) {
-      this.flightSchedules[index] = updatedFlight;
-      console.log('Flight updated:', this.flightSchedules[index])
-      return of('Flight details updated successfully');
-    } else {
-      return of('Flight not found');
-    }
+    // convert updatedFlight to the JSON format
+    const flightJson = {
+      scheduleId: updatedFlight.id,
+      flightNumber: updatedFlight.flightNumber,
+      flightName: updatedFlight.company,
+      source: updatedFlight.source,
+      destination: updatedFlight.destination,
+      departureTime:
+        updatedFlight.departureDate + 'T' + updatedFlight.departureTime,
+      arrivalTime: updatedFlight.arrivalDate + 'T' + updatedFlight.arrivalTime,
+      ec_Seats: updatedFlight.economy_class_seats,
+      fc_Seats: updatedFlight.first_class_seats,
+      bc_Seats: updatedFlight.business_class_seats,
+      ec_Price: updatedFlight.economy_class_price,
+      fc_Price: updatedFlight.first_class_price,
+      bc_Price: updatedFlight.business_class_price,
+    };
+    this.http
+      .put<any>(this.commonService.baseURL + 'updateSchedule', flightJson)
+      .subscribe((response) => {
+        console.log(response);
+      });
+    return of('Flight updated successfully');
   }
 
   getAllFlightSchedules(): Observable<Flight[]> {
@@ -66,17 +85,20 @@ export class FlightService {
   }
 
   getAllFlightIds(): Observable<number[]> {
-    const flightIds = this.flightSchedules.map(flight => flight.id);
-    return of(flightIds);
+    return of(this.flightSchedules.map((flight) => flight.id));
   }
-  
 
+  refreshFlightSchedules(): void {
+    this.loadFlightSchedules();
+  }
 
   loadFlightSchedules(): void {
+    this.flightSchedules = [];
     this.fetchFlightSchedules().subscribe((response: any[]) => {
-      response.forEach(schedule => {
+      response.forEach((schedule) => {
         const flight: Flight = {
           id: schedule.scheduleId,
+          flightNumber: schedule.flightNumber,
           company: schedule.flightName,
           source: schedule.source,
           destination: schedule.destination,
@@ -89,16 +111,17 @@ export class FlightService {
           business_class_price: schedule.bc_Price,
           economy_class_seats: schedule.ec_Seats,
           first_class_seats: schedule.fc_Seats,
-          business_class_seats: schedule.bc_Seats
+          business_class_seats: schedule.bc_Seats,
         };
         this.flightSchedules.push(flight);
       });
-      console.log(this.flightSchedules);
       this.setFilteredFlights(this.flightSchedules);
     });
   }
-  
 
-
-  
+  deleteFlightSchedule(scheduleId: number): Observable<string> {
+    return this.http.delete<any>(
+      `${this.commonService.baseURL}deleteSchedule/${scheduleId}`
+    );
+  }
 }

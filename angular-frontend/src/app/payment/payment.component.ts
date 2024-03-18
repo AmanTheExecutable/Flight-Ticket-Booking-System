@@ -6,7 +6,7 @@ import { BookingDataService } from '../services/booking-data.service';
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
-  styleUrls: ['./payment.component.scss']
+  styleUrls: ['./payment.component.scss'],
 })
 export class PaymentComponent implements OnInit {
   cardNumber: string = '';
@@ -14,10 +14,13 @@ export class PaymentComponent implements OnInit {
   expiryDate: string = '';
   cvv: string = '';
 
-  constructor(private router: Router, private paymentService: PaymentService, private bookingDataService: BookingDataService) { }
+  constructor(
+    private router: Router,
+    private paymentService: PaymentService,
+    private bookingDataService: BookingDataService
+  ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   getTotalPrice(): number {
     return this.paymentService.getTotalPrice();
@@ -27,7 +30,7 @@ export class PaymentComponent implements OnInit {
     if (this.cardNumber && this.cardHolder && this.expiryDate && this.cvv) {
       const random = Math.random();
       if (random < 0.8) {
-        this.paymentService.saveConfirmedBooking(this.bookingDataService.flight);
+        this.paymentService.saveConfirmedBooking();
 
         this.router.navigate(['payment-confirmation']);
       } else {

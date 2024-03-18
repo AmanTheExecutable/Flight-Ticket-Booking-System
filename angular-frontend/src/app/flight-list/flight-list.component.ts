@@ -7,7 +7,7 @@ import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-flight-list',
   templateUrl: './flight-list.component.html',
-  styleUrls: ['./flight-list.component.scss']
+  styleUrls: ['./flight-list.component.scss'],
 })
 export class FlightListComponent implements OnInit {
   flights: Flight[];
@@ -25,14 +25,17 @@ export class FlightListComponent implements OnInit {
     this.flights = this.flightService.getFilteredFlights();
     this.source = this.route.snapshot.queryParamMap.get('source');
     this.destination = this.route.snapshot.queryParamMap.get('destination');
+    console.log(this.flights);
   }
 
   bookFlight(flight: Flight): void {
-    if(!this.authService.isAuthenticated()){
+    if (!this.authService.isAuthenticated()) {
       alert('Please login first!');
-      this.router.navigate(['/login'], { queryParams: { returnUrl: this.router.url } });
-    }else{
-    this.router.navigate(['booking'], { state: { flight } });
+      this.router.navigate(['/login'], {
+        queryParams: { returnUrl: this.router.url },
+      });
+    } else {
+      this.router.navigate(['booking'], { state: { flight } });
     }
   }
 

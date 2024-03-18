@@ -8,7 +8,7 @@ import { BookingDataService } from '../services/booking-data.service';
 @Component({
   selector: 'app-booking',
   templateUrl: './booking.component.html',
-  styleUrls: ['./booking.component.scss']
+  styleUrls: ['./booking.component.scss'],
 })
 export class BookingComponent implements OnInit {
   flight: Flight;
@@ -20,11 +20,11 @@ export class BookingComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private bookingDataService: BookingDataService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.flight = history.state.flight;
-    
+
     this.initializeForm();
 
     this.duration = this.calculateDuration();
@@ -32,7 +32,7 @@ export class BookingComponent implements OnInit {
 
   initializeForm(): void {
     this.bookingForm = this.fb.group({
-      passengers: this.fb.array([])
+      passengers: this.fb.array([]),
     });
     this.addPassenger();
   }
@@ -42,54 +42,60 @@ export class BookingComponent implements OnInit {
   }
 
   addPassenger(): void {
-    this.passengers.push(this.fb.group({
-      name: ['', Validators.required],
-      age: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      address: ['', Validators.required],
-      seatCategory: ['economy'],
-      seat: [this.seats++],
-    }));
+    this.passengers.push(
+      this.fb.group({
+        name: ['', Validators.required],
+        age: ['', Validators.required],
+        phone: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+        address: ['', Validators.required],
+        seatCategory: ['economy'],
+        seat: [this.seats++],
+        gender: ['', Validators.required],
+      })
+    );
   }
 
   removePassenger(index: number): void {
     if (confirm('Are you sure you want to remove this passenger?')) {
       this.passengers.removeAt(index);
     }
-
   }
 
   confirmBooking() {
     const passengersData = this.bookingForm.get('passengers').value;
     const flight = this.flight;
-  
+
     this.bookingDataService.setPassengersData(passengersData);
     this.bookingDataService.setFlight(flight);
     this.bookingDataService.totalAmount = this.calculateTotalPrice();
-  
+
     this.router.navigate(['/confirm-booking']);
   }
-  
 
   cancelBooking(): void {
     console.log('Booking cancelled:', this.flight);
   }
 
   calculateDuration(): string {
-    const departureDateTime = new Date(`${this.flight.departureDate}T${this.flight.departureTime}:00`);
-    const arrivalDateTime = new Date(`${this.flight.arrivalDate}T${this.flight.arrivalTime}:00`);
-  
+    const departureDateTime = new Date(
+      `${this.flight.departureDate}T${this.flight.departureTime}:00`
+    );
+    const arrivalDateTime = new Date(
+      `${this.flight.arrivalDate}T${this.flight.arrivalTime}:00`
+    );
+
     const duration = arrivalDateTime.getTime() - departureDateTime.getTime();
     const hours = Math.floor(duration / (1000 * 60 * 60));
     const minutes = Math.floor((duration % (1000 * 60 * 60)) / (1000 * 60));
-  
+
     return `${hours}h ${minutes}m`;
   }
 
   calculateTotalPrice(): number {
     const totalPassengers = this.passengers.length;
     let totalPrice = 0;
-  
+
     for (const passenger of this.passengers.controls) {
       const seatCategory = passenger.get('seatCategory').value;
       switch (seatCategory) {
@@ -107,8 +113,7 @@ export class BookingComponent implements OnInit {
           break;
       }
     }
-  
+
     return totalPrice * totalPassengers;
   }
-  
 }

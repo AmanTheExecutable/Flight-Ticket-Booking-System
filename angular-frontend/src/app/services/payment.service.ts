@@ -1,15 +1,21 @@
 import { Injectable } from '@angular/core';
-import { BookingService } from './booking.service';
-import { Flight } from '../modals/flight.modal';
 import { Observable } from 'rxjs';
+import { CommonService } from './common.service';
+import { BookingDataService } from './booking-data.service';
+import { UserService } from './user.service';
+import { HttpClient } from '@angular/common/http';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PaymentService {
-
   private totalPrice: number;
 
-  constructor(private bookingService: BookingService) { }
+  constructor(
+    private bookingDataService: BookingDataService,
+    private commonService: CommonService,
+    private userService: UserService,
+    private http: HttpClient
+  ) {}
 
   setTotalPrice(price: number): void {
     this.totalPrice = price;
@@ -19,8 +25,35 @@ export class PaymentService {
     return this.totalPrice;
   }
 
-  saveConfirmedBooking(flight: Flight): Observable<any> {
-    return this.bookingService.bookFlight(flight);
-    
+  saveConfirmedBooking(): Observable<any> {
+    this.bookingDataService.passengersData.forEach((passenger: any) => {
+      let cost = 0;
+      if (passenger.seatCategory == 'economy') {
+        cost = this.bookingDataService.flight.economy_class_price;
+      }
+      if (passenger.seatCategory == 'firstClass') {
+        cost = this.bookingDataService.flight.first_class_price;
+      }
+      if (passenger.seatCategory == 'business') {
+        cost = this.bookingDataService.flight.business_class_price;
+      }
+      const obj = {
+        userID: this.userService.userDetails.id,
+        scheduleID: this.bookingDataService.flight.id,
+        passengerName: passenger.name,
+        passengerGender: passenger.gender,
+        passengerPhone: passenger.phone,
+        passengerEmail: passenger.email,
+        passengerAge: passenger.age,
+        price: cost,
+        seatPreference: passenger.seatCategory,
+      };
+      this.http
+        .post(this.commonService.baseURL + 'booking', obj)
+        .subscribe((response) => {
+          console.log(response);
+        });
+    });
+    return;
   }
 }

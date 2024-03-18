@@ -8,7 +8,7 @@
       <button (click)="navigateTo('booking-cancellations')">
         Booking Cancellations
       </button>
-      <button *ngIf="!isLoggedIn" (click)="navigateTo('login')">Login</button>
+      <button *ngIf="!isLoggedIn" (click)="login()">Login</button>
       <button *ngIf="isLoggedIn" (click)="logout()">Logout</button>
     </nav>
   </header>

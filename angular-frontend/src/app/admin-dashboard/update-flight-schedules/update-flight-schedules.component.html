@@ -10,6 +10,17 @@
 <div *ngIf="selectedFlight" class="selected-flight-details">
   <h3>Edit Flight {{ selectedFlight.id }}</h3>
   <form (submit)="updateFlight()" class="flight-update-form">
+    <div class="form-group">
+      <label for="id">Flight Number/ID:</label>
+      <input
+        type="text"
+        id="id"
+        [(ngModel)]="selectedFlight.flightNumber"
+        name="id"
+        class="form-control"
+      />
+    </div>
+
     <label for="company">Company:</label>
     <input
       type="text"

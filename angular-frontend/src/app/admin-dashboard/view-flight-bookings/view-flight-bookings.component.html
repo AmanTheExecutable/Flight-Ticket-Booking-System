@@ -1,8 +1,7 @@
 <h2 class="booking-heading">Flight Bookings</h2>
 
 <div class="booking-container">
-  <!-- Loop through past bookings -->
-  <div *ngFor="let booking of pastBookings" class="booking-card">
+  <!-- <div *ngFor="let booking of pastBookings" class="booking-card">
     <div>
       <p><strong>Travel ID:</strong> {{ booking.travelID }}</p>
       <p><strong>Company:</strong> {{ booking.company }}</p>
@@ -13,7 +12,6 @@
     </div>
   </div>
 
-  <!-- Loop through future bookings -->
   <div *ngFor="let booking of futureBookings" class="booking-card">
     <div>
       <p><strong>Travel ID:</strong> {{ booking.travelID }}</p>
@@ -23,17 +21,25 @@
       <p><strong>Destination:</strong> {{ booking.destination }}</p>
       <p><strong>Price:</strong> {{ booking.price }}</p>
     </div>
-  </div>
+  </div> -->
 
-  <!-- Loop through confirmed bookings -->
   <div *ngFor="let booking of confirmedBookings" class="booking-card">
     <div>
       <p><strong>Travel ID:</strong> {{ booking.travelID }}</p>
+      <p><strong>Booked By:</strong> {{ booking.userName }}</p>
       <p><strong>Company:</strong> {{ booking.company }}</p>
+      <p><strong>Flight No:</strong> {{ booking.flightNumber }}</p>
+
       <p><strong>Departure Date:</strong> {{ booking.departureDate }}</p>
+      <p><strong>Arrival Date:</strong> {{ booking.arrivalDate }}</p>
+
       <p><strong>Source:</strong> {{ booking.source }}</p>
       <p><strong>Destination:</strong> {{ booking.destination }}</p>
       <p><strong>Price:</strong> {{ booking.price }}</p>
+
+      <p><strong>Passenger Name:</strong> {{ booking.passengerName }}</p>
+      <p><strong>Passenger Age:</strong> {{ booking.passengerAge }}</p>
+      <p><strong>Passenger Gender:</strong> {{ booking.passengerGender }}</p>
     </div>
   </div>
 </div>

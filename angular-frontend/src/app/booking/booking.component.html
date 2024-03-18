@@ -34,13 +34,18 @@
           [formControl]="passenger.controls['email']"
           required
         />
-        <label for="address{{ i }}">Address:</label>
+        <label for="phone{{ i }}">Phone:</label>
         <input
           type="text"
-          id="address{{ i }}"
-          [formControl]="passenger.controls['address']"
+          id="phone{{ i }}"
+          [formControl]="passenger.controls['phone']"
           required
         />
+        <label for="gender{{ i }}">Gender</label>
+        <select [formControl]="passenger.controls['gender']">
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
         <label
           >Seat Preference:
           <select [formControl]="passenger.controls['seatCategory']">

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule,FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule, Routes} from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component';
@@ -22,28 +22,84 @@ import { ConfirmBookingComponent } from './booking-confirmation/booking-confirma
 import { PaymentComponent } from './payment/payment.component';
 import { PaymentConfirmationComponent } from './payment-confirmation/payment-confirmation.component';
 import { PaymentFailedComponent } from './payment-failed/payment-failed.component';
-
+import { AdminAuthGuard } from './services/admin-auth.guard';
+import { UserAuthGuard } from './services/user-auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/user-dashboard', pathMatch: 'full' },
   { path: 'user-dashboard', component: DashboardComponent },
-  { path: 'admin-dashboard', component: AdminDashboardComponent },
-  { path: 'upcoming-trips', component: UpcomingTripsComponent },
-  { path: 'manage-account', component: ManageAccountComponent },
-  {path: 'flight-search-list' , component:FlightListComponent},
-  { path: 'booking-cancellations', component: BookingCancellationsComponent },
+  {
+    path: 'admin-dashboard',
+    component: AdminDashboardComponent,
+    canActivate: [AdminAuthGuard],
+  },
+  {
+    path: 'upcoming-trips',
+    component: UpcomingTripsComponent,
+    canActivate: [UserAuthGuard],
+  },
+  {
+    path: 'manage-account',
+    component: ManageAccountComponent,
+    canActivate: [UserAuthGuard],
+  },
+  {
+    path: 'flight-search-list',
+    component: FlightListComponent,
+  },
+  {
+    path: 'booking-cancellations',
+    component: BookingCancellationsComponent,
+    canActivate: [UserAuthGuard],
+  },
   { path: 'login', component: LoginComponent },
   { path: 'registeration', component: RegistrationComponent },
-  {path:'booking' , component:BookingComponent},
-  {path:'flight-schedule-management', component:FlightScheduleManagementComponent},
-  {path:'view-flight-schedules', component:ViewFlightSchedulesComponent},
-  {path:'view-flight-bookings', component:ViewFlightBookingsComponent},
-  {path:'update-flight-details', component:UpdateFlightSchedulesComponent},
-  {path:'confirm-booking', component:ConfirmBookingComponent},
-  {path:'confirm-booking', component:ConfirmBookingComponent},
-  {path:'payment', component:PaymentComponent},
-  {path:'payment-confirmation', component:PaymentConfirmationComponent},
-  {path:'payment-failed', component:PaymentFailedComponent}
+  {
+    path: 'booking',
+    component: BookingComponent,
+    canActivate: [UserAuthGuard],
+  },
+  {
+    path: 'flight-schedule-management',
+    component: FlightScheduleManagementComponent,
+
+    canActivate: [AdminAuthGuard],
+  },
+  {
+    path: 'view-flight-schedules',
+    component: ViewFlightSchedulesComponent,
+    canActivate: [AdminAuthGuard],
+  },
+  {
+    path: 'view-flight-bookings',
+    component: ViewFlightBookingsComponent,
+    canActivate: [AdminAuthGuard],
+  },
+  {
+    path: 'update-flight-details',
+    component: UpdateFlightSchedulesComponent,
+    canActivate: [AdminAuthGuard],
+  },
+  {
+    path: 'confirm-booking',
+    component: ConfirmBookingComponent,
+    canActivate: [UserAuthGuard],
+  },
+  {
+    path: 'payment',
+    component: PaymentComponent,
+    canActivate: [UserAuthGuard],
+  },
+  {
+    path: 'payment-confirmation',
+    component: PaymentConfirmationComponent,
+    canActivate: [UserAuthGuard],
+  },
+  {
+    path: 'payment-failed',
+    component: PaymentFailedComponent,
+    canActivate: [UserAuthGuard],
+  },
 ];
 
 @NgModule({
@@ -73,9 +129,9 @@ const routes: Routes = [
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
