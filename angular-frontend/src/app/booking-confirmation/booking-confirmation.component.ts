@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PaymentService } from '../services/payment.service';
 import { BookingDataService } from '../services/booking-data.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-confirm-booking',
@@ -13,7 +14,7 @@ export class ConfirmBookingComponent implements OnInit {
   passengersData: any;
   flight: any;
 
-  constructor(private route: ActivatedRoute, private router: Router, private paymentService: PaymentService, private bookingDataService: BookingDataService) { }
+  constructor(private authService: AuthService,private router: Router, private paymentService: PaymentService, private bookingDataService: BookingDataService) { }
 
   ngOnInit() {
     this.passengersData = this.bookingDataService.passengersData;
@@ -37,10 +38,11 @@ export class ConfirmBookingComponent implements OnInit {
   }
 
   payment(): void {
+
     const totalPrice = this.bookingDataService.totalAmount;
     this.paymentService.setTotalPrice(totalPrice);
     this.router.navigate(['/payment'])
   }
-  
-
 }
+
+

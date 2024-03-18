@@ -1,8 +1,6 @@
-<!-- confirm-booking.component.html -->
 <div class="booking-details">
   <h2>Confirm Booking</h2>
 
-  <!-- Flight Details -->
   <div class="flight-details">
     <h3>Flight Details</h3>
     <p>Airline: {{ flight.company }}</p>
@@ -12,19 +10,21 @@
     <p>Price: ₹{{ totalAmount }}</p>
   </div>
 
-  <!-- Passenger Details -->
-  <div class="passenger-details">
-    <h3>Passenger Details</h3>
-    <div *ngFor="let passenger of passengersData">
+  <h3 class="passenger-details">Passenger Details</h3>
+  <ul class="passenger-list">
+    <li *ngFor="let passenger of passengersData" class="passenger-card">
       <div class="passenger-info">
-        <p>Name: {{ passenger.name }}</p>
-        <p>Age: {{ passenger.age }}</p>
-        <p>Email: {{ passenger.email }}</p>
-        <p>Address: {{ passenger.address }}</p>
-        <p>Seat: {{ passenger.seat }}</p>
+        <p><strong>Name:</strong> {{ passenger.name }}</p>
+        <p><strong>Age:</strong> {{ passenger.age }}</p>
+        <p><strong>Email:</strong> {{ passenger.email }}</p>
+        <p><strong>Address:</strong> {{ passenger.address }}</p>
+        <p><strong>Seat:</strong> {{ passenger.seatCategory }}</p>
       </div>
-    </div>
+    </li>
+  </ul>
+
+  <div class="button-container">
+    <button class="proceed-button" (click)="payment()">Proceed To Pay</button>
+    <button class="cancel-button" (click)="cancelBooking()">Cancel</button>
   </div>
-  <button (click)="payment()">Proceed To Pay</button>
-  <button (click)="cancelBooking()">Cancel</button>
 </div>

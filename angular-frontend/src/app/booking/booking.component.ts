@@ -53,7 +53,10 @@ export class BookingComponent implements OnInit {
   }
 
   removePassenger(index: number): void {
-    this.passengers.removeAt(index);
+    if (confirm('Are you sure you want to remove this passenger?')) {
+      this.passengers.removeAt(index);
+    }
+
   }
 
   confirmBooking() {

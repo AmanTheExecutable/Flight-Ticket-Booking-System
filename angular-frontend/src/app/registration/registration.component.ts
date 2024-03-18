@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service'
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -10,17 +10,15 @@ import { Router } from '@angular/router';
 })
 export class RegistrationComponent implements OnInit {
   registrationForm: FormGroup;
-
-  constructor(private fb: FormBuilder, private userService: UserService,private router: Router) { }
+  constructor(private fb: FormBuilder, private userService: UserService,private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.registrationForm = this.fb.group({
-      username: ['', Validators.required],
+      name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phoneNo: ['', Validators.required],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required],
-      otp: ['', Validators.required]
 
     });
   }
@@ -31,9 +29,11 @@ export class RegistrationComponent implements OnInit {
     }
     const formData = JSON.stringify(this.registrationForm.value);
     console.log(formData)
+    const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.userService.register(formData).subscribe(
       response => {
         console.log('Registration successful:', response);
+        this.router.navigate(['/login'], { queryParams: { returnUrl } });
       },
       error => {
         console.error('Registration failed:', error);

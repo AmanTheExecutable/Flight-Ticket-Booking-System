@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Flight } from '../modals/flight.modal';
 import { FlightService } from '../services/flight.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-flight-list',
@@ -16,7 +17,8 @@ export class FlightListComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private flightService: FlightService
+    private flightService: FlightService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -26,7 +28,12 @@ export class FlightListComponent implements OnInit {
   }
 
   bookFlight(flight: Flight): void {
+    if(!this.authService.isAuthenticated()){
+      alert('Please login first!');
+      this.router.navigate(['/login'], { queryParams: { returnUrl: this.router.url } });
+    }else{
     this.router.navigate(['booking'], { state: { flight } });
+    }
   }
 
   calculateDuration(flight: Flight): string {

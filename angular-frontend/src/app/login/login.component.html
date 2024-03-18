@@ -28,16 +28,9 @@
         Please enter a password.
       </div>
     </div>
-    <div class="form-group">
-      <label for="role">Role:</label>
-      <select id="role" formControlName="role" required>
-        <option value="User">User</option>
-        <option value="Admin">Admin</option>
-      </select>
-    </div>
     <button type="submit" [disabled]="loginForm.invalid">Login</button>
   </form>
   <div class="register-link">
-    <p>New user? Click to <a routerLink="/registeration">register</a></p>
+    <button (click)="registration()">New user? Click to register</button>
   </div>
 </div>

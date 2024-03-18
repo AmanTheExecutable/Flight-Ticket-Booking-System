@@ -2,12 +2,12 @@
   <h2>Registration</h2>
   <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
-      <label for="username">Username:</label>
-      <input type="text" id="username" formControlName="username" required />
+      <label for="name">Full Name:</label>
+      <input type="text" id="name" formControlName="name" required />
       <div
         *ngIf="
-          registrationForm.get('username').invalid &&
-          registrationForm.get('username').touched
+          registrationForm.get('name').invalid &&
+          registrationForm.get('name').touched
         "
         class="error-message"
       >
@@ -76,9 +76,6 @@
       >
         Passwords do not match.
       </div>
-      <label for="otp">OTP</label>
-      <input type="text" formControlName="otp" id="otp" required />
-      <button type="button">Send OTP</button>
       <div class="btn-group">
         <button type="submit" [disabled]="registrationForm.invalid">
           Register

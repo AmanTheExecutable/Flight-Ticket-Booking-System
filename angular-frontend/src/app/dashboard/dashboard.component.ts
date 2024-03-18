@@ -18,6 +18,11 @@ export class DashboardComponent {
 
 
   navigateTo(route: string): void {
+    if(!this.authService.isAuthenticated()) {
+      alert('You need to login first');
+  }
+  else{
     this.router.navigate([route]);
   }
+}
 }
