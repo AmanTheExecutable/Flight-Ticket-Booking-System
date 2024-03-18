@@ -1,176 +1,19 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, of, tap } from 'rxjs';
 import { Flight } from '../modals/flight.modal';
+import { HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FlightService {
-  flightSchedules: Flight[] = [
-    {
-      id: 1,
-      company: 'Indigo',
-      source: 'Delhi',
-      destination: 'Mumbai',
-      departureDate: '2021-08-01',
-      departureTime: '10:00',
-      arrivalDate: '2021-08-01',
-      arrivalTime: '12:00',
-      economy_class_price: 3000,
-      first_class_price: 6000,
-      business_class_price: 8000,
-      economy_class_seats: 50,
-      business_class_seats: 30,
-      first_class_seats: 20
-    },
-    {
-      id: 2,
-      company: 'Indigo',
-      source: 'Delhi',
-      destination: 'Mumbai',
-      departureDate: '2021-08-01',
-      departureTime: '10:00',
-      arrivalDate: '2021-08-01',
-      arrivalTime: '12:00',
-      economy_class_price: 3200,
-      first_class_price: 6200,
-      business_class_price: 8200,
-      economy_class_seats: 45,
-      business_class_seats: 25,
-      first_class_seats: 15
-    },
-    {
-      id: 3,
-      company: 'Air India',
-      source: 'Delhi',
-      destination: 'Mumbai',
-      departureDate: '2021-08-02',
-      departureTime: '08:00',
-      arrivalDate: '2021-08-02',
-      arrivalTime: '10:00',
-      economy_class_price: 3400,
-      first_class_price: 6400,
-      business_class_price: 8400,
-      economy_class_seats: 55,
-      business_class_seats: 35,
-      first_class_seats: 25
-    },
-    {
-      id: 4,
-      company: 'SpiceJet',
-      source: 'Delhi',
-      destination: 'Mumbai',
-      departureDate: '2021-08-03',
-      departureTime: '11:30',
-      arrivalDate: '2021-08-03',
-      arrivalTime: '13:30',
-      economy_class_price: 3100,
-      first_class_price: 6100,
-      business_class_price: 8100,
-      economy_class_seats: 60,
-      business_class_seats: 40,
-      first_class_seats: 30
-    },
-    {
-      id: 5,
-      company: 'Vistara',
-      source: 'Mumbai',
-      destination: 'Delhi',
-      departureDate: '2021-08-04',
-      departureTime: '14:00',
-      arrivalDate: '2021-08-04',
-      arrivalTime: '16:00',
-      economy_class_price: 3300,
-      first_class_price: 6300,
-      business_class_price: 8300,
-      economy_class_seats: 65,
-      business_class_seats: 45,
-      first_class_seats: 35
-    },
-    {
-      id: 6,
-      company: 'GoAir',
-      source: 'Chennai',
-      destination: 'Kolkata',
-      departureDate: '2021-08-05',
-      departureTime: '09:30',
-      arrivalDate: '2021-08-05',
-      arrivalTime: '11:30',
-      economy_class_price: 2900,
-      first_class_price: 5900,
-      business_class_price: 7900,
-      economy_class_seats: 50,
-      business_class_seats: 30,
-      first_class_seats: 20
-    },
-    {
-      id: 7,
-      company: 'Air Asia',
-      source: 'Bangalore',
-      destination: 'Hyderabad',
-      departureDate: '2021-08-06',
-      departureTime: '12:00',
-      arrivalDate: '2021-08-06',
-      arrivalTime: '13:00',
-      economy_class_price: 3000,
-      first_class_price: 6000,
-      business_class_price: 8000,
-      economy_class_seats: 55,
-      business_class_seats: 35,
-      first_class_seats: 25
-    },
-    {
-      id: 8,
-      company: 'Jet Airways',
-      source: 'Kolkata',
-      destination: 'Mumbai',
-      departureDate: '2021-08-07',
-      departureTime: '15:00',
-      arrivalDate: '2021-08-07',
-      arrivalTime: '17:00',
-      economy_class_price: 3200,
-      first_class_price: 6200,
-      business_class_price: 8200,
-      economy_class_seats: 60,
-      business_class_seats: 40,
-      first_class_seats: 30
-    },
-    {
-      id: 9,
-      company: 'Air India',
-      source: 'Mumbai',
-      destination: 'Delhi',
-      departureDate: '2021-08-08',
-      departureTime: '18:00',
-      arrivalDate: '2021-08-08',
-      arrivalTime: '20:00',
-      economy_class_price: 3300,
-      first_class_price: 6300,
-      business_class_price: 8300,
-      economy_class_seats: 65,
-      business_class_seats: 45,
-      first_class_seats: 35
-    },
-    {
-      id: 10,
-      company: 'Indigo',
-      source: 'Delhi',
-      destination: 'Mumbai',
-      departureDate: '2021-08-09',
-      departureTime: '21:00',
-      arrivalDate: '2021-08-09',
-      arrivalTime: '23:00',
-      economy_class_price: 3100,
-      first_class_price: 6100,
-      business_class_price: 8100,
-      economy_class_seats: 50,
-      business_class_seats: 30,
-      first_class_seats: 20
-    }
-  ];
-  
+  flightSchedules: Flight[] = [];
+   
+  fetchFlightSchedules(): Observable<any> {
+    return this.http.get('http://192.168.103.147:8080/flightReports');
+  }
 
-  constructor() { }  
+  constructor(private http: HttpClient) { }  
   private filteredFlightsSubject = new BehaviorSubject<Flight[]>([]);
   filteredFlights$ = this.filteredFlightsSubject.asObservable();
 
@@ -227,5 +70,35 @@ export class FlightService {
     return of(flightIds);
   }
   
+
+
+  loadFlightSchedules(): void {
+    this.fetchFlightSchedules().subscribe((response: any[]) => {
+      response.forEach(schedule => {
+        const flight: Flight = {
+          id: schedule.scheduleId,
+          company: schedule.flightName,
+          source: schedule.source,
+          destination: schedule.destination,
+          departureDate: schedule.departureTime.split('T')[0],
+          departureTime: schedule.departureTime.split('T')[1].substring(0, 5),
+          arrivalDate: schedule.arrivalTime.split('T')[0],
+          arrivalTime: schedule.arrivalTime.split('T')[1].substring(0, 5),
+          economy_class_price: schedule.ec_Price,
+          first_class_price: schedule.fc_Price,
+          business_class_price: schedule.bc_Price,
+          economy_class_seats: schedule.ec_Seats,
+          first_class_seats: schedule.fc_Seats,
+          business_class_seats: schedule.bc_Seats
+        };
+        this.flightSchedules.push(flight);
+      });
+      console.log(this.flightSchedules);
+      this.setFilteredFlights(this.flightSchedules);
+    });
+  }
+  
+
+
   
 }
