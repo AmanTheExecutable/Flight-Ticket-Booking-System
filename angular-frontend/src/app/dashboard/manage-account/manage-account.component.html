@@ -5,14 +5,17 @@
     <h3>User Details</h3>
     <div>
       <p>
-        Name: <span>{{ userDetails.username }}</span>
+        User ID: <span>{{ userDetails.id }}</span>
+      </p>
+      <p>
+        Name: <span>{{ userDetails.name }}</span>
       </p>
       <div *ngIf="editMode">
         <input type="text" formControlName="username" />
       </div>
 
       <p>
-        Email: <span>{{ userDetails.email }}</span>
+        Email: <span>{{ userDetails.username }}</span>
       </p>
       <div *ngIf="editMode">
         <input type="email" formControlName="email" />

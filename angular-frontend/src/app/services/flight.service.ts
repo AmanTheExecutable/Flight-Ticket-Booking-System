@@ -1,20 +1,47 @@
-import { Injectable, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, catchError, of, tap } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Flight } from '../modals/flight.modal';
 import { HttpClient } from '@angular/common/http';
 import { CommonService } from './common.service';
+import { switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FlightService {
   flightSchedules: Flight[] = [];
+  schedulesLoaded: boolean = false;
 
-  fetchFlightSchedules(): Observable<any> {
-    return this.http.get(this.commonService.baseURL + 'flightReports');
+  constructor(private http: HttpClient, private commonService: CommonService) {
+    this.loadFlightSchedules().subscribe(() => {
+      this.schedulesLoaded = true;
+    });
   }
 
-  constructor(private http: HttpClient, private commonService: CommonService) {}
+  fetchFlightSchedules(): Observable<any> {
+    return this.http.get(this.commonService.baseURL + 'getAllFlights');
+  }
+
+  // fetchFlightByParams(
+  //   source: string,
+  //   destination: string,
+  //   date: string
+  // ): Observable<any> {
+  //   const obj = {
+  //     source: source,
+  //     destination: destination,
+  //     departureTime: date,
+  //     returningTime: '',
+  //     flightNumber: '',
+  //   };
+  //   this.http
+  //     .post(this.commonService.baseURL + `searchFlights`, obj)
+  //     .subscribe((response) => {
+  //       console.log(response);
+  //     });
+  //   return of([]);
+  // }
+
   private filteredFlightsSubject = new BehaviorSubject<Flight[]>([]);
   filteredFlights$ = this.filteredFlightsSubject.asObservable();
 
@@ -40,13 +67,17 @@ export class FlightService {
     destination: string,
     date: string
   ): Observable<Flight[]> {
-    const filteredFlights = this.flightSchedules.filter(
-      (flight) =>
-        flight.source.toLowerCase() === source.toLowerCase() &&
-        flight.destination.toLowerCase() === destination.toLowerCase() &&
-        flight.departureDate >= date
+    return this.loadFlightSchedules().pipe(
+      switchMap(() => {
+        const filteredFlights = this.flightSchedules.filter(
+          (flight) =>
+            flight.source.toLowerCase() === source.toLowerCase() &&
+            flight.destination.toLowerCase() === destination.toLowerCase() &&
+            flight.departureDate >= date
+        );
+        return of(filteredFlights);
+      })
     );
-    return of(filteredFlights);
   }
 
   getFlightById(ide: number): Observable<Flight> {
@@ -55,7 +86,6 @@ export class FlightService {
   }
 
   updateFlightDetails(updatedFlight: Flight): Observable<string> {
-    // convert updatedFlight to the JSON format
     const flightJson = {
       scheduleId: updatedFlight.id,
       flightNumber: updatedFlight.flightNumber,
@@ -89,14 +119,19 @@ export class FlightService {
   }
 
   refreshFlightSchedules(): void {
-    this.loadFlightSchedules();
+    this.schedulesLoaded = false;
+    this.loadFlightSchedules().subscribe(() => {
+      this.schedulesLoaded = true;
+    });
   }
 
-  loadFlightSchedules(): void {
-    this.flightSchedules = [];
-    this.fetchFlightSchedules().subscribe((response: any[]) => {
-      response.forEach((schedule) => {
-        const flight: Flight = {
+  loadFlightSchedules(): Observable<void> {
+    if (this.schedulesLoaded) {
+      return of(undefined);
+    }
+    return new Observable<void>((observer) => {
+      this.fetchFlightSchedules().subscribe((response: any[]) => {
+        this.flightSchedules = response.map((schedule) => ({
           id: schedule.scheduleId,
           flightNumber: schedule.flightNumber,
           company: schedule.flightName,
@@ -112,10 +147,11 @@ export class FlightService {
           economy_class_seats: schedule.ec_Seats,
           first_class_seats: schedule.fc_Seats,
           business_class_seats: schedule.bc_Seats,
-        };
-        this.flightSchedules.push(flight);
+        }));
+        this.setFilteredFlights(this.flightSchedules);
+        observer.next();
+        observer.complete();
       });
-      this.setFilteredFlights(this.flightSchedules);
     });
   }
 

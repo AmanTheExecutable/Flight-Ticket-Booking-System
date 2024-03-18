@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BookingService } from '../../services/booking.service';
 import { UserService } from '../../services/user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-manage-account',
@@ -26,7 +27,8 @@ export class ManageAccountComponent implements OnInit {
   constructor(
     private bookingService: BookingService,
     private userService: UserService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {

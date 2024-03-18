@@ -15,6 +15,7 @@ export class ViewFlightSchedulesComponent implements OnInit {
 
   ngOnInit(): void {
     this.flightService.getAllFlightSchedules().subscribe((schedules) => {
+      console.log(this.flightSchedules);
       this.flightSchedules = schedules;
     });
   }

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CommonService } from './common.service';
 import { Router } from '@angular/router';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,8 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private commonService: CommonService,
-    private router: Router
+    private router: Router,
+    private userService: UserService
   ) {}
   private isLoggedIn = false;
   private isAdminLoggedIn = false;
@@ -40,6 +42,14 @@ export class AuthService {
             this.router.navigate(['/admin-dashboard']);
             return 'success';
           } else {
+            const obj = {
+              id: res.id,
+              name: res.name,
+              username: res.username,
+              phoneNo: res.phoneNo,
+              password: res.password,
+            };
+            this.userService.setUserData(obj);
             this.isLoggedIn = true;
             this.router.navigate(['/user-dashboard']);
             return 'success';

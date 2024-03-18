@@ -26,6 +26,7 @@ export class PaymentService {
   }
 
   saveConfirmedBooking(): Observable<any> {
+    const queryObj = [];
     this.bookingDataService.passengersData.forEach((passenger: any) => {
       let cost = 0;
       if (passenger.seatCategory == 'economy') {
@@ -48,12 +49,8 @@ export class PaymentService {
         price: cost,
         seatPreference: passenger.seatCategory,
       };
-      this.http
-        .post(this.commonService.baseURL + 'booking', obj)
-        .subscribe((response) => {
-          console.log(response);
-        });
+      queryObj.push(obj);
     });
-    return;
+    return this.http.post(this.commonService.baseURL + 'addBooking', queryObj);
   }
 }

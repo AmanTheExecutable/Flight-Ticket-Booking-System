@@ -15,12 +15,11 @@ export class DashboardComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private flightService: FlightService
-  ) {
-    this.flightService.loadFlightSchedules();
-  }
+  ) {}
 
   ngOnInit(): void {
     this.isLoggedIn = this.authService.isAuthenticated();
+    this.flightService.loadFlightSchedules();
   }
 
   navigateTo(route: string): void {

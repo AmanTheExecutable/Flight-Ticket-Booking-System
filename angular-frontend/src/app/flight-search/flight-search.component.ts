@@ -34,26 +34,17 @@ export class FlightSearchComponent {
     destination: string,
     departureDate: string
   ): void {
-    if (
-      this.userform.value.source == '' ||
-      this.userform.value.destination == '' ||
-      this.userform.value.departureDate == ''
-    ) {
-      alert('Please fill all the necessary details!');
-      return;
-    } else {
-      this.flightService
-        .searchFlights(source, destination, departureDate)
-        .subscribe(
-          (flights: Flight[]) => {
-            this.flightService.setFilteredFlights(flights);
-            this.navigateToFlightList(source, destination);
-          },
-          (error) => {
-            console.error('Error searching for flights:', error);
-          }
-        );
-    }
+    this.flightService
+      .searchFlights(source, destination, departureDate)
+      .subscribe(
+        (flights: Flight[]) => {
+          this.flightService.setFilteredFlights(flights);
+          this.navigateToFlightList(source, destination);
+        },
+        (error) => {
+          console.error('Error searching for flights:', error);
+        }
+      );
   }
 
   navigateToFlightList(source: string, destination: string): void {

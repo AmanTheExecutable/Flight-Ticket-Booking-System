@@ -2,18 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { CommonService } from './common.service';
+import { user } from '../modals/user.modal';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  userDetails: any = {
-    id: 1,
-    username: 'Aman Jangra',
-    email: 'temp@gmail.com',
-    phoneNo: '7814161155',
-    password: '123456',
-  };
+  userDetails: user;
 
   constructor(private http: HttpClient, private commonService: CommonService) {}
   register(userData: any): Observable<any> {
@@ -22,6 +17,10 @@ export class UserService {
 
   login(userData: any): Observable<any> {
     return of(userData);
+  }
+
+  setUserData(userData: any): void {
+    this.userDetails = userData;
   }
 
   getUserDetails(): Observable<any> {
