@@ -39,7 +39,7 @@ export class FlightSearchComponent {
       this.userform.value.destination == '' ||
       this.userform.value.departureDate == ''
     ) {
-      alert('Please fill the source, destination and departure date!');
+      alert('Please fill all the necessary details!');
       return;
     } else {
       this.flightService
