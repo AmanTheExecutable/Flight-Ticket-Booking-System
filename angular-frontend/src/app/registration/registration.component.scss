@@ -46,9 +46,13 @@ input {
 
 .error-message {
   color: red;
-  font-size: 0.8rem;
+  font-size: 1rem;
   width: 100%;
   margin-top: 5px;
+  font-weight: bolder;
+  &::before {
+    content: "⚠ ";
+  }
 }
 
 .btn-group {

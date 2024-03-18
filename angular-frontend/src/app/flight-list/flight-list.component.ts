@@ -25,7 +25,6 @@ export class FlightListComponent implements OnInit {
     this.flights = this.flightService.getFilteredFlights();
     this.source = this.route.snapshot.queryParamMap.get('source');
     this.destination = this.route.snapshot.queryParamMap.get('destination');
-    console.log(this.flights);
   }
 
   bookFlight(flight: Flight): void {
