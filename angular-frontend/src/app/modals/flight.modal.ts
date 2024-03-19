@@ -8,6 +8,7 @@ export interface Flight {
   departureTime: string;
   arrivalTime: string;
   arrivalDate: string;
+  path: string;
   duration?: string;
   economy_class_price?: number;
   first_class_price?: number;

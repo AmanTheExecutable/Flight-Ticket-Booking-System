@@ -34,28 +34,27 @@ export class FlightSearchComponent {
     destination: string,
     departureDate: string
   ): void {
-    // check if source and destination and departure date are undefined
     if (!source || !destination || !departureDate) {
       alert('Please fill required fields');
       return;
     }
+    const obj = {
+      source: source.toUpperCase(),
+      destination: destination.toUpperCase(),
+      departureDate: departureDate,
+      returningDate: '',
+      flightNumber: '',
+    };
     this.flightService
-      .searchFlights(source, destination, departureDate)
-      .subscribe(
-        (flights: Flight[]) => {
-          if (flights.length === 0) {
-            alert('No flights found for the given source and destination');
-            this.userform.reset();
-            return;
-          } else {
-            this.flightService.setFilteredFlights(flights);
-            this.navigateToFlightList(source, destination);
-          }
-        },
-        (error) => {
-          console.error('Error searching for flights:', error);
+      .searchFlightsByPost(obj)
+      .subscribe((flights: Flight[]) => {
+        if (flights.length == 0) {
+          alert('No flights found for the given source and destination');
+          this.userform.reset();
+        } else {
+          this.navigateToFlightList(source, destination);
         }
-      );
+      });
   }
 
   navigateToFlightList(source: string, destination: string): void {

@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, map, of } from 'rxjs';
 import { Flight } from '../modals/flight.modal';
 import { HttpClient } from '@angular/common/http';
 import { CommonService } from './common.service';
-import { switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FlightService {
   flightSchedules: Flight[] = [];
+  searchListFlights: Flight[] = [];
   schedulesLoaded: boolean = false;
 
   constructor(private http: HttpClient, private commonService: CommonService) {
@@ -41,24 +41,52 @@ export class FlightService {
       });
   }
 
-  searchFlights(
-    source: string,
-    destination: string,
-    date: string
-  ): Observable<Flight[]> {
-    console.log(source, destination, date);
-    return this.loadFlightSchedules().pipe(
-      switchMap(() => {
-        const filteredFlights = this.flightSchedules.filter(
-          (flight) =>
-            flight.source.toLowerCase() === source.toLowerCase() &&
-            flight.destination.toLowerCase() === destination.toLowerCase() &&
-            flight.departureDate == date
-        );
-        return of(filteredFlights);
+  searchFlightsByPost(obj: any): Observable<Flight[]> {
+    this.searchListFlights = [];
+    return this.http.post<any>(this.commonService.baseURL + 'search', obj).pipe(
+      map((Response: any[]) => {
+        Response.forEach((schedule: any) => {
+          this.searchListFlights.push({
+            id: schedule.scheduleId,
+            flightNumber: schedule.flightNumber,
+            company: schedule.flightName,
+            source: schedule.source,
+            destination: schedule.destination,
+            departureDate: schedule.departureTime.split('T')[0],
+            departureTime: schedule.departureTime.split('T')[1].substring(0, 5),
+            arrivalDate: schedule.arrivalTime.split('T')[0],
+            arrivalTime: schedule.arrivalTime.split('T')[1].substring(0, 5),
+            path: schedule.path,
+            economy_class_price: schedule.ec_Price,
+            first_class_price: schedule.fc_Price,
+            business_class_price: schedule.bc_Price,
+            economy_class_seats: schedule.ec_Seats,
+            first_class_seats: schedule.fc_Seats,
+            business_class_seats: schedule.bc_Seats,
+          });
+        });
+        return this.searchListFlights;
       })
     );
   }
+
+  // searchFlights(
+  //   source: string,
+  //   destination: string,
+  //   date: string
+  // ): Observable<Flight[]> {
+  //   return this.loadFlightSchedules().pipe(
+  //     switchMap(() => {
+  //       const filteredFlights = this.flightSchedules.filter(
+  //         (flight) =>
+  //           flight.source.toLowerCase() === source.toLowerCase() &&
+  //           flight.destination.toLowerCase() === destination.toLowerCase() &&
+  //           flight.departureDate == date
+  //       );
+  //       return of(filteredFlights);
+  //     })
+  //   );
+  // }
 
   getFlightById(ide: number): Observable<Flight> {
     const flight = this.flightSchedules.find((flight) => flight.id == ide);
@@ -120,6 +148,7 @@ export class FlightService {
           departureTime: schedule.departureTime.split('T')[1].substring(0, 5),
           arrivalDate: schedule.arrivalTime.split('T')[0],
           arrivalTime: schedule.arrivalTime.split('T')[1].substring(0, 5),
+          path: schedule.path,
           economy_class_price: schedule.ec_Price,
           first_class_price: schedule.fc_Price,
           business_class_price: schedule.bc_Price,

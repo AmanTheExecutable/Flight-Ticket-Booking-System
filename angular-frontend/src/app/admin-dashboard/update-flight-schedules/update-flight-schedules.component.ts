@@ -36,7 +36,7 @@ export class UpdateFlightSchedulesComponent implements OnInit {
       this.flightService
         .updateFlightDetails(this.selectedFlight)
         .subscribe((updatedFlight) => {
-          console.log('Flight updated:', updatedFlight);
+          alert('Flight details updated successfully');
         });
       this.router.navigate(['/admin-dashboard']);
     }

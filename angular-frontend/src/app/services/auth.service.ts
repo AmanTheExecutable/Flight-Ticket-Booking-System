@@ -34,7 +34,7 @@ export class AuthService {
       .post(this.commonService.baseURL + 'login', obj)
       .subscribe((res: any) => {
         if (res.id == 0) {
-          this.router.navigate(['/login']);
+          alert('Invalid username or password');
           return 'failure';
         } else {
           if (res.username.includes('kingflyer')) {
