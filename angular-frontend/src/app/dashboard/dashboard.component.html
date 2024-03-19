@@ -3,11 +3,13 @@
     <a routerLink="/user-dashboard"><h1>King Flyer</h1></a>
 
     <nav>
-      <button (click)="navigateTo('upcoming-trips')">Upcoming Trips</button>
-      <button (click)="navigateTo('manage-account')">Manage Account</button>
-      <button (click)="navigateTo('booking-cancellations')">
+      <button *ngIf="isLoggedIn" (click)="navigateTo('manage-account')">
+        Manage Account
+      </button>
+      <button *ngIf="isLoggedIn" (click)="navigateTo('booking-cancellations')">
         Booking Cancellations
       </button>
+
       <button *ngIf="!isLoggedIn" (click)="login()">Login</button>
       <button *ngIf="isLoggedIn" (click)="logout()">Logout</button>
     </nav>

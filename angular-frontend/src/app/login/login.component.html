@@ -1,6 +1,6 @@
 <div class="login-container">
-  <h2>User Login</h2>
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <h2>User Login</h2>
     <div class="form-group">
       <label for="email">Email:</label>
       <input type="email" id="email" formControlName="email" required />
@@ -28,9 +28,11 @@
         Please enter a password.
       </div>
     </div>
-    <button type="submit" [disabled]="loginForm.invalid">Login</button>
+    <div class="form-group">
+      <button type="submit" [disabled]="loginForm.invalid">Login</button>
+    </div>
+    <div class="register-link form-group">
+      <button (click)="registration()">New user? Click to register</button>
+    </div>
   </form>
-  <div class="register-link">
-    <button (click)="registration()">New user? Click to register</button>
-  </div>
 </div>

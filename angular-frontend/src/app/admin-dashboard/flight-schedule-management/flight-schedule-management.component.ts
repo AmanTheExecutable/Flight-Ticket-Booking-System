@@ -1,16 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FlightService } from '../../services/flight.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-flight-schedule-management',
   templateUrl: './flight-schedule-management.component.html',
-  styleUrls: ['./flight-schedule-management.component.scss']
+  styleUrls: ['./flight-schedule-management.component.scss'],
 })
 export class FlightScheduleManagementComponent implements OnInit {
   flightForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private flightService: FlightService) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private flightService: FlightService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.flightForm = this.formBuilder.group({
@@ -27,7 +32,7 @@ export class FlightScheduleManagementComponent implements OnInit {
       businessClassPrice: ['', Validators.required],
       economyClassSeats: ['', Validators.required],
       firstClassSeats: ['', Validators.required],
-      businessClassSeats: ['', Validators.required]
+      businessClassSeats: ['', Validators.required],
     });
   }
 
@@ -50,8 +55,10 @@ export class FlightScheduleManagementComponent implements OnInit {
   submitFlight(): void {
     if (this.flightForm.valid) {
       const flightData = this.flightForm.value;
-      const departureDateTime = new Date(flightData.departureDate + 'T' + flightData.departureTime);
-      const arrivalDateTime = new Date(flightData.arrivalDate + 'T' + flightData.arrivalTime);
+      const departureDateTime =
+        flightData.departureDate + 'T' + flightData.departureTime;
+      const arrivalDateTime =
+        flightData.arrivalDate + 'T' + flightData.arrivalTime;
       const obj = {
         flightNumber: flightData.id,
         flightName: flightData.company,
@@ -64,10 +71,11 @@ export class FlightScheduleManagementComponent implements OnInit {
         fc_Seats: flightData.firstClassSeats,
         ec_Price: flightData.economyClassPrice,
         fc_Price: flightData.firstClassPrice,
-        bc_Price: flightData.businessClassPrice, 
-        
-      }
+        bc_Price: flightData.businessClassPrice,
+      };
       this.flightService.addFlightSchedule(obj);
+
+      this.router.navigate(['/admin-dashboard']);
       alert('Flight added successfully');
     }
   }

@@ -1,45 +1,62 @@
-<h2 class="booking-heading">Flight Bookings</h2>
+<div class="container">
+  <h1 class="booking-heading">Flight Bookings</h1>
 
-<div class="booking-container">
-  <!-- <div *ngFor="let booking of pastBookings" class="booking-card">
-    <div>
-      <p><strong>Travel ID:</strong> {{ booking.travelID }}</p>
-      <p><strong>Company:</strong> {{ booking.company }}</p>
-      <p><strong>Departure Date:</strong> {{ booking.departureDate }}</p>
-      <p><strong>Source:</strong> {{ booking.source }}</p>
-      <p><strong>Destination:</strong> {{ booking.destination }}</p>
-      <p><strong>Price:</strong> {{ booking.price }}</p>
-    </div>
-  </div>
+  <div class="booking-container">
+    <div *ngFor="let booking of allBookings" class="booking-card">
+      <div>
+        <p>
+          Booking ID: <span>{{ booking.travelID }}</span>
+        </p>
+        <p>
+          Booked By: <span>{{ booking.userName }}</span>
+        </p>
+        <p>
+          Booked On: <span>{{ booking.bookingDate }}</span>
+        </p>
 
-  <div *ngFor="let booking of futureBookings" class="booking-card">
-    <div>
-      <p><strong>Travel ID:</strong> {{ booking.travelID }}</p>
-      <p><strong>Company:</strong> {{ booking.company }}</p>
-      <p><strong>Departure Date:</strong> {{ booking.departureDate }}</p>
-      <p><strong>Source:</strong> {{ booking.source }}</p>
-      <p><strong>Destination:</strong> {{ booking.destination }}</p>
-      <p><strong>Price:</strong> {{ booking.price }}</p>
-    </div>
-  </div> -->
+        <p>
+          Airline: <span>{{ booking.company }}</span>
+        </p>
+        <p>
+          Flight Number: <span>{{ booking.flightNumber }}</span>
+        </p>
+        <p>
+          Source: <span>{{ booking.source }}</span>
+        </p>
+        <p>
+          Destination: <span>{{ booking.destination }}</span>
+        </p>
+        <p>
+          Departure Date: <span>{{ booking.departureDate }}</span>
+        </p>
+        <p>
+          Arrival Date: <span>{{ booking.arrivalDate }}</span>
+        </p>
+        <p>
+          Passenger Name: <span>{{ booking.passengerName }}</span>
+        </p>
+        <p>
+          Passenger Age: <span>{{ booking.passengerAge }}</span>
+        </p>
+        <p>
+          Passenger Gender: <span>{{ booking.passengerGender }}</span>
+        </p>
 
-  <div *ngFor="let booking of confirmedBookings" class="booking-card">
-    <div>
-      <p><strong>Travel ID:</strong> {{ booking.travelID }}</p>
-      <p><strong>Booked By:</strong> {{ booking.userName }}</p>
-      <p><strong>Company:</strong> {{ booking.company }}</p>
-      <p><strong>Flight No:</strong> {{ booking.flightNumber }}</p>
+        <p>
+          Passenger Phone: <span>{{ booking.passengerPhone }}</span>
+        </p>
 
-      <p><strong>Departure Date:</strong> {{ booking.departureDate }}</p>
-      <p><strong>Arrival Date:</strong> {{ booking.arrivalDate }}</p>
+        <p>
+          Passenger Email: <span>{{ booking.passengerEmail }}</span>
+        </p>
+        <p>
+          Seat Prefernce <span>{{ booking.seatPrefernce }}</span>
+        </p>
 
-      <p><strong>Source:</strong> {{ booking.source }}</p>
-      <p><strong>Destination:</strong> {{ booking.destination }}</p>
-      <p><strong>Price:</strong> {{ booking.price }}</p>
-
-      <p><strong>Passenger Name:</strong> {{ booking.passengerName }}</p>
-      <p><strong>Passenger Age:</strong> {{ booking.passengerAge }}</p>
-      <p><strong>Passenger Gender:</strong> {{ booking.passengerGender }}</p>
+        <p>
+          Price: <span>{{ booking.price }}</span>
+        </p>
+      </div>
     </div>
   </div>
 </div>

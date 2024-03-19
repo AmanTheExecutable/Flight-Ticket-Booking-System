@@ -31,14 +31,14 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   generateFlightReport(): void {
-    const url = this.CommonService.baseURL + 'downloadSchedules';
+    const url = this.CommonService.baseURL + 'flightReport';
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Accept: 'application/csv',
     });
 
     this.http
-      .get(this.CommonService.baseURL + 'downloadSchedules', {
+      .get(this.CommonService.baseURL + 'flightReport', {
         headers: headers,
         responseType: 'blob',
       })
@@ -58,14 +58,14 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   generateBookingDetails(): void {
-    const url = this.CommonService.baseURL + 'downloadBookingDetails';
+    const url = this.CommonService.baseURL + 'bookingReport';
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Accept: 'application/csv',
     });
 
     this.http
-      .get(this.CommonService.baseURL + 'downloadBookingDetails', {
+      .get(this.CommonService.baseURL + 'bookingReport', {
         headers: headers,
         responseType: 'blob',
       })

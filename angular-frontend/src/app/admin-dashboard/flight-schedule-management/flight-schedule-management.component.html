@@ -1,120 +1,132 @@
 <div class="flight-schedule-management">
   <h2>Flight Schedule Management</h2>
   <form [formGroup]="flightForm" (ngSubmit)="submitFlight()">
-    <div class="form-group">
-      <label for="id">Flight Number/Id:</label>
-      <input type="text" id="id" formControlName="id" required />
-      <label for="company">Company:</label>
-      <input type="text" id="company" formControlName="company" required />
-    </div>
-    <div class="form-group">
-      <label for="source">Source:</label>
-      <input type="text" id="source" formControlName="source" required />
-    </div>
-    <div class="form-group">
-      <label for="destination">Destination:</label>
-      <input
-        type="text"
-        id="destination"
-        formControlName="destination"
-        required
-      />
-    </div>
-    <div class="form-group">
-      <label for="departureDate">Departure Date:</label>
-      <input
-        type="date"
-        id="departureDate"
-        formControlName="departureDate"
-        required
-      />
-    </div>
-    <div class="form-group">
-      <label for="departureTime">Departure Time:</label>
-      <input
-        type="time"
-        id="departureTime"
-        formControlName="departureTime"
-        required
-      />
-    </div>
-    <div class="form-group">
-      <label for="arrivalDate">Arrival Date:</label>
-      <input
-        type="date"
-        id="arrivalDate"
-        formControlName="arrivalDate"
-        required
-      />
-    </div>
-    <div class="form-group">
-      <label for="arrivalTime">Arrival Time:</label>
-      <input
-        type="time"
-        id="arrivalTime"
-        formControlName="arrivalTime"
-        required
-      />
-    </div>
-    <div class="form-group">
-      <label for="duration">Duration:</label>
-      <label>{{ calculateDuration() }}</label>
+    <div class="container-1">
+      <div class="form-group">
+        <label for="id">Flight Number/Id:</label>
+        <input type="text" id="id" formControlName="id" required />
+      </div>
+      <div class="form-group">
+        <label for="company">Company:</label>
+        <input type="text" id="company" formControlName="company" required />
+      </div>
+      <div class="form-group">
+        <label for="source">Source:</label>
+        <input type="text" id="source" formControlName="source" required />
+      </div>
+      <div class="form-group">
+        <label for="destination">Destination:</label>
+        <input
+          type="text"
+          id="destination"
+          formControlName="destination"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="departureDate">Departure Date:</label>
+        <input
+          type="date"
+          id="departureDate"
+          formControlName="departureDate"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="departureTime">Departure Time:</label>
+        <input
+          type="time"
+          id="departureTime"
+          formControlName="departureTime"
+          required
+          step="1"
+        />
+      </div>
+      <div class="form-group">
+        <label for="arrivalDate">Arrival Date:</label>
+        <input
+          type="date"
+          id="arrivalDate"
+          formControlName="arrivalDate"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="arrivalTime">Arrival Time:</label>
+        <input
+          type="time"
+          id="arrivalTime"
+          formControlName="arrivalTime"
+          required
+          step="1"
+        />
+      </div>
+      <div class="form-group">
+        <label for="duration">Duration:</label>
+        <label *ngIf="calculateDuration() != 'NaNh NaNm'">{{
+          calculateDuration()
+        }}</label>
+      </div>
     </div>
 
-    <div class="form-group">
-      <label for="economyClassPrice">Economy Class Price:</label>
-      <input
-        type="number"
-        id="economyClassPrice"
-        formControlName="economyClassPrice"
-        required
-      />
+    <div class="container-2">
+      <div class="form-group">
+        <label for="economyClassPrice">Economy Class Price:</label>
+        <input
+          type="number"
+          id="economyClassPrice"
+          formControlName="economyClassPrice"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="firstClassPrice">First Class Price:</label>
+        <input
+          type="number"
+          id="firstClassPrice"
+          formControlName="firstClassPrice"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="businessClassPrice">Business Class Price:</label>
+        <input
+          type="number"
+          id="businessClassPrice"
+          formControlName="businessClassPrice"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="economyClassSeats">Economy Class Seats:</label>
+        <input
+          type="number"
+          id="economyClassSeats"
+          formControlName="economyClassSeats"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="firstClassSeats">First Class Seats:</label>
+        <input
+          type="number"
+          id="firstClassSeats"
+          formControlName="firstClassSeats"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="businessClassSeats">Business Class Seats:</label>
+        <input
+          type="number"
+          id="businessClassSeats"
+          formControlName="businessClassSeats"
+          required
+        />
+      </div>
+      <div class="form-group-2">
+        <button type="submit">Submit</button>
+      </div>
     </div>
-    <div class="form-group">
-      <label for="firstClassPrice">First Class Price:</label>
-      <input
-        type="number"
-        id="firstClassPrice"
-        formControlName="firstClassPrice"
-        required
-      />
-    </div>
-    <div class="form-group">
-      <label for="businessClassPrice">Business Class Price:</label>
-      <input
-        type="number"
-        id="businessClassPrice"
-        formControlName="businessClassPrice"
-        required
-      />
-    </div>
-    <div class="form-group">
-      <label for="economyClassSeats">Economy Class Seats:</label>
-      <input
-        type="number"
-        id="economyClassSeats"
-        formControlName="economyClassSeats"
-        required
-      />
-    </div>
-    <div class="form-group">
-      <label for="firstClassSeats">First Class Seats:</label>
-      <input
-        type="number"
-        id="firstClassSeats"
-        formControlName="firstClassSeats"
-        required
-      />
-    </div>
-    <div class="form-group">
-      <label for="businessClassSeats">Business Class Seats:</label>
-      <input
-        type="number"
-        id="businessClassSeats"
-        formControlName="businessClassSeats"
-        required
-      />
-    </div>
-    <button type="submit">Submit</button>
   </form>
 </div>

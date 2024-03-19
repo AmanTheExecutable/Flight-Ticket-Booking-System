@@ -23,11 +23,7 @@ export class DashboardComponent implements OnInit {
   }
 
   navigateTo(route: string): void {
-    if (!this.authService.isAuthenticated()) {
-      alert('You need to login first');
-    } else {
-      this.router.navigate([route]);
-    }
+    this.router.navigate([route]);
   }
 
   login(): void {
@@ -37,5 +33,6 @@ export class DashboardComponent implements OnInit {
   logout(): void {
     this.authService.logout();
     this.isLoggedIn = false;
+    this.router.navigate(['login']);
   }
 }

@@ -1,7 +1,28 @@
 <div class="payment-container">
   <h1>Amount to be paid: {{ getTotalPrice() }}</h1>
   <form (ngSubmit)="pay()">
-    <div class="card-details">
+    <div class="payment-option">
+      <input
+        type="radio"
+        id="card-option"
+        name="paymentOption"
+        value="card"
+        [(ngModel)]="selectedPaymentOption"
+        required
+      />
+      <label for="card-option">Card</label>
+      <input
+        type="radio"
+        id="upi-option"
+        name="paymentOption"
+        value="upi"
+        [(ngModel)]="selectedPaymentOption"
+        required
+      />
+      <label for="upi-option">UPI</label>
+    </div>
+
+    <div *ngIf="selectedPaymentOption === 'card'" class="card-details">
       <div class="form-group">
         <label for="card-number">Card Number:</label>
         <input
@@ -37,6 +58,20 @@
         <input type="text" id="cvv" name="cvv" [(ngModel)]="cvv" required />
       </div>
     </div>
+
+    <div *ngIf="selectedPaymentOption === 'upi'" class="upi-details">
+      <div class="form-group">
+        <label for="upi-id">UPI ID:</label>
+        <input
+          type="text"
+          id="upi-id"
+          name="upiId"
+          [(ngModel)]="upiId"
+          required
+        />
+      </div>
+    </div>
+
     <button class="pay-button" type="submit">Pay</button>
   </form>
 </div>

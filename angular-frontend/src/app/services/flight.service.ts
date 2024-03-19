@@ -19,28 +19,8 @@ export class FlightService {
   }
 
   fetchFlightSchedules(): Observable<any> {
-    return this.http.get(this.commonService.baseURL + 'getAllFlights');
+    return this.http.get(this.commonService.baseURL + 'flights');
   }
-
-  // fetchFlightByParams(
-  //   source: string,
-  //   destination: string,
-  //   date: string
-  // ): Observable<any> {
-  //   const obj = {
-  //     source: source,
-  //     destination: destination,
-  //     departureTime: date,
-  //     returningTime: '',
-  //     flightNumber: '',
-  //   };
-  //   this.http
-  //     .post(this.commonService.baseURL + `searchFlights`, obj)
-  //     .subscribe((response) => {
-  //       console.log(response);
-  //     });
-  //   return of([]);
-  // }
 
   private filteredFlightsSubject = new BehaviorSubject<Flight[]>([]);
   filteredFlights$ = this.filteredFlightsSubject.asObservable();
@@ -54,9 +34,8 @@ export class FlightService {
   }
 
   addFlightSchedule(flight: any): void {
-    this.flightSchedules.push(flight);
     this.http
-      .post<any>(this.commonService.baseURL + 'addSchedule', flight)
+      .post<any>(this.commonService.baseURL + 'flights', flight)
       .subscribe((response) => {
         console.log(response);
       });
@@ -67,13 +46,14 @@ export class FlightService {
     destination: string,
     date: string
   ): Observable<Flight[]> {
+    console.log(source, destination, date);
     return this.loadFlightSchedules().pipe(
       switchMap(() => {
         const filteredFlights = this.flightSchedules.filter(
           (flight) =>
             flight.source.toLowerCase() === source.toLowerCase() &&
             flight.destination.toLowerCase() === destination.toLowerCase() &&
-            flight.departureDate >= date
+            flight.departureDate == date
         );
         return of(filteredFlights);
       })
@@ -103,7 +83,7 @@ export class FlightService {
       bc_Price: updatedFlight.business_class_price,
     };
     this.http
-      .put<any>(this.commonService.baseURL + 'updateSchedule', flightJson)
+      .put<any>(this.commonService.baseURL + 'flights', flightJson)
       .subscribe((response) => {
         console.log(response);
       });
@@ -111,6 +91,7 @@ export class FlightService {
   }
 
   getAllFlightSchedules(): Observable<Flight[]> {
+    this.refreshFlightSchedules().subscribe();
     return of(this.flightSchedules);
   }
 
@@ -118,17 +99,15 @@ export class FlightService {
     return of(this.flightSchedules.map((flight) => flight.id));
   }
 
-  refreshFlightSchedules(): void {
+  refreshFlightSchedules(): Observable<Flight[]> {
     this.schedulesLoaded = false;
     this.loadFlightSchedules().subscribe(() => {
       this.schedulesLoaded = true;
     });
+    return of(this.flightSchedules);
   }
 
   loadFlightSchedules(): Observable<void> {
-    if (this.schedulesLoaded) {
-      return of(undefined);
-    }
     return new Observable<void>((observer) => {
       this.fetchFlightSchedules().subscribe((response: any[]) => {
         this.flightSchedules = response.map((schedule) => ({
@@ -155,9 +134,9 @@ export class FlightService {
     });
   }
 
-  deleteFlightSchedule(scheduleId: number): Observable<string> {
+  deleteFlightSchedule(scheduleId: number): Observable<any> {
     return this.http.delete<any>(
-      `${this.commonService.baseURL}deleteSchedule/${scheduleId}`
+      `${this.commonService.baseURL}flights/${scheduleId}`
     );
   }
 }

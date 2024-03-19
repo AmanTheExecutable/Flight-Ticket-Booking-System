@@ -1,69 +1,113 @@
-<h2>Manage My Account</h2>
+<div class="container">
+  <h2>Manage My Account</h2>
+  <div class="manage-account">
+    <div class="user-details" [formGroup]="userForm">
+      <h3>User Details</h3>
+      <div>
+        <p>
+          Name: <span>{{ userDetails.name }}</span>
+        </p>
+        <div *ngIf="editMode">
+          <input type="text" formControlName="name" />
+        </div>
 
-<div class="manage-account">
-  <div class="user-details" [formGroup]="userForm">
-    <h3>User Details</h3>
-    <div>
-      <p>
-        User ID: <span>{{ userDetails.id }}</span>
-      </p>
-      <p>
-        Name: <span>{{ userDetails.name }}</span>
-      </p>
-      <div *ngIf="editMode">
-        <input type="text" formControlName="username" />
+        <p>
+          Email: <span>{{ userDetails.username }}</span>
+        </p>
+        <div *ngIf="editMode">
+          <input type="email" formControlName="username" />
+        </div>
+        <p>
+          Phone: <span>{{ userDetails.phoneNo }}</span>
+        </p>
+        <div *ngIf="editMode">
+          <input type="text" formControlName="phoneNo" />
+        </div>
+        <p>
+          Password: <span>{{ userDetails.password }}</span>
+        </p>
+        <div *ngIf="editMode">
+          <input type="text" formControlName="password" />
+        </div>
       </div>
-
-      <p>
-        Email: <span>{{ userDetails.username }}</span>
-      </p>
+      <div *ngIf="!editMode"><button (click)="enableForm()">Edit</button></div>
       <div *ngIf="editMode">
-        <input type="email" formControlName="email" />
-      </div>
-      <p>
-        Phone: <span>{{ userDetails.phoneNo }}</span>
-      </p>
-      <div *ngIf="editMode">
-        <input type="text" formControlName="phoneNo" />
-      </div>
-      <p>
-        Password: <span>{{ userDetails.password }}</span>
-      </p>
-      <div *ngIf="editMode">
-        <input type="text" formControlName="password" />
+        <button (click)="saveChanges()">Save</button>
+        <button (click)="cancelChanges()">Cancel</button>
       </div>
     </div>
-    <div *ngIf="!editMode"><button (click)="enableForm()">Edit</button></div>
-    <div *ngIf="editMode">
-      <button (click)="saveChanges()">Save</button>
-      <button (click)="cancelChanges()">Cancel</button>
-    </div>
-  </div>
 
-  <div class="bookings">
-    <h1>My Bookings</h1>
-    <div *ngIf="confirmedBookings && confirmedBookings.length">
-      <h4>Confirmed Bookings</h4>
-      <ul>
-        <li *ngFor="let booking of confirmedBookings">
-          <p>
-            Booking ID: <span>{{ booking.travelID }}</span>
-          </p>
-          <p>
-            AirLine: <span>{{ booking.company }}</span>
-          </p>
-          <p>
-            Departure: <span>{{ booking.departureDate }}</span>
-          </p>
-          <p>
-            Arrival: <span>{{ booking.arrivalDate }}</span>
-          </p>
-          <p>
-            Price: <span>{{ booking.price }}</span>
-          </p>
-        </li>
-      </ul>
-      <div *ngIf="pastBookings && pastBookings.length">
+    <div class="bookings">
+      <h1>My Bookings</h1>
+      <div *ngIf="upcomingBookings.length != 0; else noUpcomingBookings">
+        <h4>Upcoming Bookings</h4>
+        <ul>
+          <li *ngFor="let booking of upcomingBookings">
+            <p>
+              Booking ID: <span>{{ booking.travelID }}</span>
+            </p>
+            <p>
+              Booking On: <span>{{ booking.bookingDate }}</span>
+            </p>
+            <p>
+              Airline: <span>{{ booking.company }}</span>
+            </p>
+            <p>
+              Flight Number: <span>{{ booking.flightNumber }}</span>
+            </p>
+            <p>
+              Source: <span>{{ booking.source }}</span>
+            </p>
+            <p>
+              Destination: <span>{{ booking.destination }}</span>
+            </p>
+            <p>
+              Departure Date: <span>{{ booking.departureDate }}</span>
+            </p>
+            <p>
+              Arrival Date: <span>{{ booking.arrivalDate }}</span>
+            </p>
+            <p>
+              Passenger Name: <span>{{ booking.passengerName }}</span>
+            </p>
+            <p>
+              Passenger Age: <span>{{ booking.passengerAge }}</span>
+            </p>
+            <p>
+              Passenger Gender: <span>{{ booking.passengerGender }}</span>
+            </p>
+
+            <p>
+              Passenger Phone: <span>{{ booking.passengerPhone }}</span>
+            </p>
+
+            <p>
+              Passenger Email: <span>{{ booking.passengerEmail }}</span>
+            </p>
+
+            <p>
+              Price: <span>{{ booking.price }}</span>
+            </p>
+          </li>
+        </ul>
+      </div>
+
+      <ng-template #noUpcomingBookings>
+        <p
+          class="not-found"
+          style="
+            text-align: center;
+            font-size: 20px;
+            color: red;
+            margin: 10px;
+            font-weight: bold;
+          "
+        >
+          No upcoming bookings
+        </p>
+      </ng-template>
+
+      <div *ngIf="pastBookings.length != 0; else noPastBookings">
         <h4>Past Bookings</h4>
         <ul>
           <li *ngFor="let booking of pastBookings">
@@ -71,51 +115,64 @@
               Booking ID: <span>{{ booking.travelID }}</span>
             </p>
             <p>
-              AirLine: <span>{{ booking.company }}</span>
+              Booking On: <span>{{ booking.bookingDate }}</span>
             </p>
             <p>
-              Departure: <span>{{ booking.departureDate }}</span>
+              Airline: <span>{{ booking.company }}</span>
             </p>
             <p>
-              Arrival: <span>{{ booking.arrivalDate }}</span>
+              Flight Number: <span>{{ booking.flightNumber }}</span>
             </p>
+            <p>
+              Source: <span>{{ booking.source }}</span>
+            </p>
+            <p>
+              Destination: <span>{{ booking.destination }}</span>
+            </p>
+            <p>
+              Departure Date: <span>{{ booking.departureDate }}</span>
+            </p>
+            <p>
+              Arrival Date: <span>{{ booking.arrivalDate }}</span>
+            </p>
+            <p>
+              Passenger Name: <span>{{ booking.passengerName }}</span>
+            </p>
+            <p>
+              Passenger Age: <span>{{ booking.passengerAge }}</span>
+            </p>
+            <p>
+              Passenger Gender: <span>{{ booking.passengerGender }}</span>
+            </p>
+
+            <p>
+              Passenger Phone: <span>{{ booking.passengerPhone }}</span>
+            </p>
+
+            <p>
+              Passenger Email: <span>{{ booking.passengerEmail }}</span>
+            </p>
+
             <p>
               Price: <span>{{ booking.price }}</span>
             </p>
           </li>
         </ul>
       </div>
-      <div *ngIf="futureBookings && futureBookings.length">
-        <h4>Future Bookings</h4>
-        <ul>
-          <li *ngFor="let booking of futureBookings">
-            <p>
-              Booking ID: <span>{{ booking.travelID }}</span>
-            </p>
-            <p>
-              AirLine: <span>{{ booking.company }}</span>
-            </p>
-            <p>
-              Departure: <span>{{ booking.departureDate }}</span>
-            </p>
-            <p>
-              Arrival: <span>{{ booking.arrivalDate }}</span>
-            </p>
-            <p>
-              Price: <span>{{ booking.price }}</span>
-            </p>
-          </li>
-        </ul>
-      </div>
-      <div
-        *ngIf="
-          !pastBookings ||
-          (pastBookings.length === 0 && !futureBookings) ||
-          futureBookings.length === 0
-        "
-      >
-        No bookings found.
-      </div>
+      <ng-template #noPastBookings>
+        <p
+          class="not-found"
+          style="
+            text-align: center;
+            font-size: 20px;
+            color: red;
+            margin: 10px;
+            font-weight: bold;
+          "
+        >
+          No past bookings
+        </p>
+      </ng-template>
     </div>
   </div>
 </div>

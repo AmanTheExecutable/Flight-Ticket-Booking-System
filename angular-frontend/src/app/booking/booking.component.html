@@ -1,5 +1,5 @@
 <div class="booking">
-  <h2>Confirm Booking</h2>
+  <h2>Booking Details</h2>
   <div class="flight-details">
     <p>Airline: {{ flight.company }}</p>
     <p>Departure: {{ flight.departureTime }}</p>
@@ -10,31 +10,34 @@
     <p>Price: ₹{{ calculateTotalPrice() }}</p>
   </div>
   <div class="passenger">
-    <div *ngFor="let passenger of passengers.controls; let i = index">
+    <div
+      *ngFor="let passenger of passengers.controls; let i = index"
+      class="individual-passenger"
+    >
       <h3>Passenger {{ i + 1 }}</h3>
       <div class="passenger-details">
-        <label for="name{{ i }}">Name:</label>
+        <label for="name{{ i }}">Name</label>
         <input
           type="text"
           id="name{{ i }}"
           [formControl]="passenger.controls['name']"
           required
         />
-        <label for="age{{ i }}">Age:</label>
+        <label for="age{{ i }}">Age</label>
         <input
           type="text"
           id="age{{ i }}"
           [formControl]="passenger.controls['age']"
           required
         />
-        <label for="email{{ i }}">Email:</label>
+        <label for="email{{ i }}">Email</label>
         <input
           type="email"
           id="email{{ i }}"
           [formControl]="passenger.controls['email']"
           required
         />
-        <label for="phone{{ i }}">Phone:</label>
+        <label for="phone{{ i }}">Phone</label>
         <input
           type="text"
           id="phone{{ i }}"
@@ -47,7 +50,7 @@
           <option value="female">Female</option>
         </select>
         <label
-          >Seat Preference:
+          >Seat Category
           <select [formControl]="passenger.controls['seatCategory']">
             <option value="economy">Economy</option>
             <option value="business">Business</option>
@@ -69,8 +72,8 @@
     </div>
   </div>
   <div class="bottom-btns">
-    <button (click)="addPassenger()">Add Passenger</button>
-    <button (click)="confirmBooking()">Confirm Booking</button>
-    <button (click)="cancelBooking()">Cancel</button>
+    <button (click)="addPassenger()" class="add">Add Passenger</button>
+    <button (click)="confirmBooking()" class="confirm">Confirm Booking</button>
+    <button (click)="cancelBooking()" class="cancel">Cancel</button>
   </div>
 </div>

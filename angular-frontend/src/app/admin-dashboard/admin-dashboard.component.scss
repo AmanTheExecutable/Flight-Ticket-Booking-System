@@ -43,9 +43,8 @@ header {
   background-image: url("../../assets/admin-dashboard-bg.jpg");
   background-size: cover;
   background-position: center;
-  color: #333;
   padding: 20px;
-  min-height: 91.5vh;
+  min-height: 100vh;
 }
 
 .admin-actions {
@@ -58,7 +57,7 @@ header {
 
 .admin-actions button {
   background-color: #449eff;
-  color: #fff;
+  color: #000000;
   border: none;
   padding: 10px 20px;
   border-radius: 10px;
@@ -73,4 +72,6 @@ header {
 
 .admin-actions button:hover {
   background-color: #004080;
+  box-shadow: 0 0 10px 5px #004080;
+  color: #ffffff;
 }

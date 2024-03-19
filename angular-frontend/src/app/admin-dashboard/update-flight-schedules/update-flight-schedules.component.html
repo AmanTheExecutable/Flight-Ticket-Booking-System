@@ -1,139 +1,169 @@
-<h2 class="update-flights-heading">Update Flights</h2>
+<div class="container">
+  <h2 class="update-flights-heading">Update Flights</h2>
 
-<select class="flight-id-dropdown" (change)="selectFlight($event.target.value)">
-  <option value="">Select Flight ID</option>
-  <option *ngFor="let flightId of flightIds" [value]="flightId">
-    {{ flightId }}
-  </option>
-</select>
+  <select
+    class="flight-id-dropdown"
+    (change)="selectFlight($event.target.value)"
+  >
+    <option value="">Select Flight ID</option>
+    <option *ngFor="let flightId of flightIds" [value]="flightId">
+      {{ flightId }}
+    </option>
+  </select>
 
-<div *ngIf="selectedFlight" class="selected-flight-details">
-  <h3>Edit Flight {{ selectedFlight.id }}</h3>
-  <form (submit)="updateFlight()" class="flight-update-form">
-    <div class="form-group">
-      <label for="id">Flight Number/ID:</label>
-      <input
-        type="text"
-        id="id"
-        [(ngModel)]="selectedFlight.flightNumber"
-        name="id"
-        class="form-control"
-      />
-    </div>
+  <div *ngIf="selectedFlight" class="selected-flight-details">
+    <h3>Edit Flight {{ selectedFlight.id }}</h3>
+    <form (submit)="updateFlight()" class="flight-update-form">
+      <div class="container-1"></div>
+      <div class="form-group">
+        <label for="id">Flight Number/ID:</label>
+        <input
+          type="text"
+          id="id"
+          [(ngModel)]="selectedFlight.flightNumber"
+          name="id"
+          class="form-control"
+        />
+      </div>
 
-    <label for="company">Company:</label>
-    <input
-      type="text"
-      id="company"
-      [(ngModel)]="selectedFlight.company"
-      name="company"
-      class="form-control"
-    />
+      <label for="company">Company:</label>
+      <input
+        type="text"
+        id="company"
+        [(ngModel)]="selectedFlight.company"
+        name="company"
+        class="form-control"
+      />
 
-    <div class="form-group">
-      <label for="source">Source:</label>
-      <input
-        type="text"
-        id="source"
-        [(ngModel)]="selectedFlight.source"
-        name="source"
-        class="form-control"
-      />
-    </div>
+      <div class="form-group">
+        <label for="source">Source:</label>
+        <input
+          type="text"
+          id="source"
+          [(ngModel)]="selectedFlight.source"
+          name="source"
+          class="form-control"
+        />
+      </div>
 
-    <div class="form-group">
-      <label for="destination">Destination:</label>
-      <input
-        type="text"
-        id="destination"
-        [(ngModel)]="selectedFlight.destination"
-        name="destination"
-        class="form-control"
-      />
-    </div>
+      <div class="form-group">
+        <label for="destination">Destination:</label>
+        <input
+          type="text"
+          id="destination"
+          [(ngModel)]="selectedFlight.destination"
+          name="destination"
+          class="form-control"
+        />
+      </div>
 
-    <div class="form-group">
-      <label for="departure">Departure:</label>
-      <input
-        type="text"
-        id="departure"
-        [(ngModel)]="selectedFlight.departureTime"
-        name="departure"
-        class="form-control"
-      />
-    </div>
+      <div class="form-group">
+        <label for="departure_date">Departure Date:</label>
+        <input
+          type="date"
+          id="departure_date"
+          [(ngModel)]="selectedFlight.departureDate"
+          name="departure_date"
+          class="form-control"
+        />
+      </div>
 
-    <div class="form-group">
-      <label for="arrival">Arrival:</label>
-      <input
-        type="text"
-        id="arrival"
-        [(ngModel)]="selectedFlight.arrivalTime"
-        name="arrival"
-        class="form-control"
-      />
-    </div>
+      <div class="form-group">
+        <label for="departure_time">Departure Time: </label>
+        <input
+          type="time"
+          id="departure_time"
+          [(ngModel)]="selectedFlight.departureTime"
+          name="departure_time"
+          class="form-control"
+          step="1"
+        />
+      </div>
 
-    <div class="form-group">
-      <label for="price-economy">Price for economy class seats:</label>
-      <input
-        type="text"
-        id="price-economy"
-        [(ngModel)]="selectedFlight.economy_class_price"
-        name="price-economy"
-        class="form-control"
-      />
-    </div>
-    <div class="form-group">
-      <label for="price-economy">Number of economy class seats:</label>
-      <input
-        type="text"
-        id="price-economy"
-        [(ngModel)]="selectedFlight.economy_class_seats"
-        name="price-economy"
-        class="form-control"
-      />
-    </div>
-    <div class="form-group">
-      <label for="price-business">Price for business class seats:</label>
-      <input
-        type="text"
-        id="price-business"
-        [(ngModel)]="selectedFlight.business_class_price"
-        name="price-business"
-        class="form-control"
-      />
-    </div>
-    <div class="form-group">
-      <label for="price-business">Number of business class seats:</label>
-      <input
-        type="text"
-        id="price-business"
-        [(ngModel)]="selectedFlight.business_class_seats"
-        name="price-business"
-        class="form-control"
-      />
-    </div>
-    <div class="form-group">
-      <label for="price-first">Price for first class seats:</label>
-      <input
-        type="text"
-        id="price-first"
-        [(ngModel)]="selectedFlight.first_class_price"
-        name="price-first"
-        class="form-control"
-      />
-    </div>
-    <div class="form-group">
-      <label for="price-first">Number of first class seats:</label>
-      <input
-        type="text"
-        id="price-first"
-        [(ngModel)]="selectedFlight.first_class_seats"
-        name="price-first"
-        class="form-control"
-      />
-    </div>
-    <button type="submit" class="update-button">Update Flight</button>
-  </form>
+      <div class="form-group">
+        <label for="arrival_date">Arrival Date:</label>
+        <input
+          type="date"
+          id="arrival_date"
+          [(ngModel)]="selectedFlight.arrivalDate"
+          name="arrival_date"
+          class="form-control"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="arrival_time">Arrival Time:</label>
+        <input
+          type="time"
+          id="arrival_time"
+          [(ngModel)]="selectedFlight.arrivalTime"
+          name="arrival_time"
+          class="form-control"
+          step="1"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="price-economy">Price for economy class seats:</label>
+        <input
+          type="text"
+          id="price-economy"
+          [(ngModel)]="selectedFlight.economy_class_price"
+          name="price-economy"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="price-economy">Number of economy class seats:</label>
+        <input
+          type="text"
+          id="price-economy"
+          [(ngModel)]="selectedFlight.economy_class_seats"
+          name="price-economy"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="price-business">Price for business class seats:</label>
+        <input
+          type="text"
+          id="price-business"
+          [(ngModel)]="selectedFlight.business_class_price"
+          name="price-business"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="price-business">Number of business class seats:</label>
+        <input
+          type="text"
+          id="price-business"
+          [(ngModel)]="selectedFlight.business_class_seats"
+          name="price-business"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="price-first">Price for first class seats:</label>
+        <input
+          type="text"
+          id="price-first"
+          [(ngModel)]="selectedFlight.first_class_price"
+          name="price-first"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="price-first">Number of first class seats:</label>
+        <input
+          type="text"
+          id="price-first"
+          [(ngModel)]="selectedFlight.first_class_seats"
+          name="price-first"
+          class="form-control"
+        />
+      </div>
+      <button type="submit" class="update-button">Update Flight</button>
+    </form>
+  </div>
 </div>

@@ -5,12 +5,14 @@
       <button (click)="logout()">Logout</button>
     </nav>
   </header>
-
+  <h1 style="text-align: center; color: rgb(0, 0, 0)">Welcome Admin!</h1>
   <div class="admin-actions">
     <button (click)="navigateTo('flight-schedule-management')">
       Add Flight
     </button>
-    <button (click)="navigateTo('view-flight-schedules')">View Flights</button>
+    <button (click)="navigateTo('view-flight-schedules')">
+      View Flight Schedules
+    </button>
     <button (click)="navigateTo('view-flight-bookings')">View Bookings</button>
     <button (click)="navigateTo('update-flight-details')">
       Update Flight Details

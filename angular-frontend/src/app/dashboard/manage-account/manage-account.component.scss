@@ -1,119 +1,120 @@
-h2 {
-  margin: 20px;
-  font-size: 24px;
-  color: #333;
-  text-align: center;
-}
+.container {
+  background: linear-gradient(to bottom, #3e9eff, #ffffff);
+  padding: 50px;
 
-.manage-account {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 30px;
-
-  .user-details {
-    background-color: #b8b8b8;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  h2 {
+    font-size: 30px;
     margin-bottom: 30px;
-    width: 500px;
-
-    h3 {
-      font-size: 20px;
-      margin-bottom: 15px;
-    }
-
-    p {
-      margin: 10px 0;
-      font-size: 16px;
-      font-weight: bolder;
-    }
-
-    span {
-      font-weight: normal;
-    }
-
-    input {
-      padding: 10px;
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      height: 5px;
-    }
-
-    button {
-      background-color: #007bff;
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-
-      &:hover {
-        background-color: #0056b3;
-      }
-
-      & + button {
-        margin-left: 10px;
-      }
-    }
+    color: #333;
+    text-align: center;
   }
 
-  .bookings {
-    padding: 30px;
+  .manage-account {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
 
-    h1 {
-      margin-bottom: 15px;
-      color: #333;
+    .user-details {
+      background-color: #b8b8b8;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+      width: 500px;
       text-align: center;
-    }
 
-    h4 {
-      margin: 25px;
-      color: black;
-      text-align: center;
-      font-size: 20px;
-      text-decoration: underline #333;
-      // offset of the underline
-      text-underline-offset: 5px;
-    }
-
-    ul {
-      list-style-type: none;
-      padding: 0;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-
-      li {
-        background-color: #fff;
-        border-radius: 10px;
-        padding: 20px;
+      h3 {
+        font-size: 25px;
         margin-bottom: 15px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        border: 2px solid black;
+      }
+
+      p {
+        margin: 10px 0;
+        font-size: 18px;
+        font-weight: bolder;
+      }
+
+      span {
+        font-weight: normal;
+      }
+
+      input {
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        height: 5px;
+      }
+
+      button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
 
         &:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+          background-color: #0056b3;
         }
 
-        p {
-          margin: 0;
-          font-size: 16px;
+        & + button {
+          margin-left: 10px;
+        }
+      }
+    }
 
-          span {
-            font-weight: bold;
+    .bookings {
+      padding: 30px;
+
+      h1 {
+        margin-bottom: 15px;
+        color: #333;
+        text-align: center;
+      }
+
+      h4 {
+        margin: 25px;
+        color: black;
+        text-align: center;
+        font-size: 20px;
+        text-decoration: underline #333;
+        text-underline-offset: 5px;
+      }
+
+      ul {
+        list-style-type: none;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+
+        li {
+          background-color: #fff;
+          border-radius: 10px;
+          padding: 20px;
+          margin-bottom: 15px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          border: 2px solid black;
+
+          &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+          }
+
+          p {
+            margin: 0;
+            font-size: 16px;
+
+            span {
+              font-weight: bold;
+            }
           }
         }
       }
-    }
-
-    .no-bookings {
-      color: #555;
     }
   }
 }

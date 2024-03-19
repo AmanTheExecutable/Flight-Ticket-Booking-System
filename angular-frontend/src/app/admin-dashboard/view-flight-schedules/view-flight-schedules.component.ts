@@ -11,22 +11,29 @@ import { Router } from '@angular/router';
 export class ViewFlightSchedulesComponent implements OnInit {
   flightSchedules: Flight[] = [];
 
-  constructor(private flightService: FlightService, private router: Router) {}
+  constructor(private flightService: FlightService, private router: Router) {
+    this.flightService.getAllFlightSchedules().subscribe((schedules) => {
+      this.flightSchedules = schedules;
+    });
+  }
 
   ngOnInit(): void {
     this.flightService.getAllFlightSchedules().subscribe((schedules) => {
-      console.log(this.flightSchedules);
       this.flightSchedules = schedules;
     });
   }
 
   deleteSchedule(scheduleID: number): void {
-    this.flightService
-      .deleteFlightSchedule(scheduleID)
-      .subscribe((response) => {
-        console.log(response);
+    this.flightService.deleteFlightSchedule(scheduleID).subscribe(() => {
+      this.flightSchedules = this.flightSchedules.filter(
+        (schedule) => schedule.id !== scheduleID
+      );
+      this.flightService.loadFlightSchedules().subscribe();
+      this.flightService.getAllFlightSchedules().subscribe((schedules) => {
+        this.flightSchedules = schedules;
       });
-    alert('Flight Schedule Deleted Successfully');
-    this.router.navigate(['/admin-dashboard']);
+    });
+    this.router.navigate(['admin-dashboard']);
+    alert('Flight schedule deleted successfully');
   }
 }

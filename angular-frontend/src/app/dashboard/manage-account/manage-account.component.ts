@@ -12,11 +12,10 @@ import { HttpClient } from '@angular/common/http';
 export class ManageAccountComponent implements OnInit {
   userDetails: any;
   pastBookings: any[];
-  futureBookings: any[];
-  confirmedBookings: any[];
+  upcomingBookings: any[];
   editing: any = {
+    name: false,
     username: false,
-    email: false,
     phoneNo: false,
     address: false,
     dob: false,
@@ -27,42 +26,37 @@ export class ManageAccountComponent implements OnInit {
   constructor(
     private bookingService: BookingService,
     private userService: UserService,
-    private fb: FormBuilder,
-    private http: HttpClient
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
     this.userForm = this.fb.group({
-      username: [''],
-      email: ['', [Validators.email]],
+      name: [''],
+      username: ['', [Validators.email]],
       phoneNo: [''],
       password: [''],
     });
 
-    this.bookingService.getPastBookings('').subscribe(
-      (bookings) => {
-        this.pastBookings = bookings;
-      },
-      (error) => {
-        console.error('Failed to fetch past bookings:', error);
-      }
-    );
-    this.bookingService.getFutureBookings('').subscribe(
-      (bookings) => {
-        this.futureBookings = bookings;
-      },
-      (error) => {
-        console.error('Failed to fetch future bookings:', error);
-      }
-    );
-    this.bookingService.getConfirmedBookings().subscribe(
-      (bookings) => {
-        this.confirmedBookings = bookings;
-      },
-      (error) => {
-        console.error('Failed to fetch confirmed bookings:', error);
-      }
-    );
+    this.bookingService
+      .getPastBookings(this.userService.userDetails.id)
+      .subscribe(
+        (bookings) => {
+          this.pastBookings = bookings;
+        },
+        (error) => {
+          console.error('Failed to fetch past bookings:', error);
+        }
+      );
+    this.bookingService
+      .getUpcomingBookings(this.userService.userDetails.id)
+      .subscribe(
+        (bookings) => {
+          this.upcomingBookings = bookings;
+        },
+        (error) => {
+          console.error('Failed to fetch confirmed bookings:', error);
+        }
+      );
     this.userService.getUserDetails().subscribe(
       (userDetails) => {
         this.userDetails = userDetails;
@@ -107,10 +101,8 @@ export class ManageAccountComponent implements OnInit {
 
   cancelChanges(): void {
     this.editMode = false;
-    this.userForm.disable(); // Disable all form controls
+    this.userForm.disable();
   }
 
-  resetPassword(): void {
-    // Implement reset password functionality here
-  }
+  resetPassword(): void {}
 }

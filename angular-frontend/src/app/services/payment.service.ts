@@ -39,18 +39,28 @@ export class PaymentService {
         cost = this.bookingDataService.flight.business_class_price;
       }
       const obj = {
-        userID: this.userService.userDetails.id,
-        scheduleID: this.bookingDataService.flight.id,
+        userId: this.userService.userDetails.id,
+        scheduleId: this.bookingDataService.flight.id,
         passengerName: passenger.name,
-        passengerGender: passenger.gender,
-        passengerPhone: passenger.phone,
         passengerEmail: passenger.email,
+        passengerPhone: passenger.phone,
+        passengerGender: passenger.gender,
         passengerAge: passenger.age,
-        price: cost,
+        ticketPrice: cost,
         seatPreference: passenger.seatCategory,
       };
       queryObj.push(obj);
     });
-    return this.http.post(this.commonService.baseURL + 'addBooking', queryObj);
+    console.log(queryObj);
+    this.http.post(this.commonService.baseURL + 'booking', queryObj).subscribe(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {
+        console.error('Failed to save booking:', error);
+      }
+    );
+
+    return;
   }
 }

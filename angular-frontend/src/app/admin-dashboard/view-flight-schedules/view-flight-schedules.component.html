@@ -1,64 +1,65 @@
-<h2>Flight Schedules</h2>
-
-<div class="flight-schedules-container">
-  <div class="flight-schedule-card" *ngFor="let schedule of flightSchedules">
-    <div class="flight-schedule-title">Schedule ID: {{ schedule.id }}</div>
-    <div class="flight-detail">
-      <span class="label">Company:</span>
-      <span class="value">{{ schedule.company }}</span>
+<div class="container">
+  <h1>Flight Schedules</h1>
+  <div class="flight-schedules-container">
+    <div class="flight-schedule-card" *ngFor="let schedule of flightSchedules">
+      <div class="flight-schedule-title">Schedule ID: {{ schedule.id }}</div>
+      <div class="flight-detail">
+        <span class="label">Company:</span>
+        <span class="value">{{ schedule.company }}</span>
+      </div>
+      <div class="flight-detail">
+        <span class="label">Flight Number:</span>
+        <span class="value">{{ schedule.flightNumber }}</span>
+      </div>
+      <div class="flight-detail">
+        <span class="label">Source:</span>
+        <span class="value">{{ schedule.source }}</span>
+      </div>
+      <div class="flight-detail">
+        <span class="label">Destination:</span>
+        <span class="value">{{ schedule.destination }}</span>
+      </div>
+      <div class="flight-detail">
+        <span class="label">Departure Date:</span>
+        <span class="value">{{ schedule.departureDate }}</span>
+      </div>
+      <div class="flight-detail">
+        <span class="label">Departure Time:</span>
+        <span class="value">{{ schedule.departureTime }}</span>
+      </div>
+      <div class="flight-detail">
+        <span class="label">Arrival Date:</span>
+        <span class="value">{{ schedule.arrivalDate }}</span>
+      </div>
+      <div class="flight-detail">
+        <span class="label">Arrival Time:</span>
+        <span class="value">{{ schedule.arrivalTime }}</span>
+      </div>
+      <div class="flight-detail">
+        <span class="label">Economy Class Price:</span>
+        <span class="value">{{ schedule.economy_class_price }}</span>
+      </div>
+      <div class="flight-detail">
+        <span class="label">First Class Price:</span>
+        <span class="value">{{ schedule.first_class_price }}</span>
+      </div>
+      <div class="flight-detail">
+        <span class="label">Business Class Price:</span>
+        <span class="value">{{ schedule.business_class_price }}</span>
+      </div>
+      <div class="flight-detail">
+        <span class="label">Economy Class Seats:</span>
+        <span class="value">{{ schedule.economy_class_seats }}</span>
+      </div>
+      <div class="flight-detail">
+        <span class="label">First Class Seats:</span>
+        <span class="value">{{ schedule.first_class_seats }}</span>
+      </div>
+      <div class="flight-detail">
+        <span class="label">Business Class Seats:</span>
+        <span class="value">{{ schedule.business_class_seats }}</span>
+      </div>
+      <button (click)="deleteSchedule(schedule.id)">Delete</button>
     </div>
-    <div class="flight-detail">
-      <span class="label">Flight Number:</span>
-      <span class="value">{{ schedule.flightNumber }}</span>
-    </div>
-    <div class="flight-detail">
-      <span class="label">Source:</span>
-      <span class="value">{{ schedule.source }}</span>
-    </div>
-    <div class="flight-detail">
-      <span class="label">Destination:</span>
-      <span class="value">{{ schedule.destination }}</span>
-    </div>
-    <div class="flight-detail">
-      <span class="label">Departure Date:</span>
-      <span class="value">{{ schedule.departureDate }}</span>
-    </div>
-    <div class="flight-detail">
-      <span class="label">Departure Time:</span>
-      <span class="value">{{ schedule.departureTime }}</span>
-    </div>
-    <div class="flight-detail">
-      <span class="label">Arrival Date:</span>
-      <span class="value">{{ schedule.arrivalDate }}</span>
-    </div>
-    <div class="flight-detail">
-      <span class="label">Arrival Time:</span>
-      <span class="value">{{ schedule.arrivalTime }}</span>
-    </div>
-    <div class="flight-detail">
-      <span class="label">Economy Class Price:</span>
-      <span class="value">{{ schedule.economy_class_price }}</span>
-    </div>
-    <div class="flight-detail">
-      <span class="label">First Class Price:</span>
-      <span class="value">{{ schedule.first_class_price }}</span>
-    </div>
-    <div class="flight-detail">
-      <span class="label">Business Class Price:</span>
-      <span class="value">{{ schedule.business_class_price }}</span>
-    </div>
-    <div class="flight-detail">
-      <span class="label">Economy Class Seats:</span>
-      <span class="value">{{ schedule.economy_class_seats }}</span>
-    </div>
-    <div class="flight-detail">
-      <span class="label">First Class Seats:</span>
-      <span class="value">{{ schedule.first_class_seats }}</span>
-    </div>
-    <div class="flight-detail">
-      <span class="label">Business Class Seats:</span>
-      <span class="value">{{ schedule.business_class_seats }}</span>
-    </div>
-    <button (click)="deleteSchedule(schedule.id)">Delete</button>
   </div>
 </div>

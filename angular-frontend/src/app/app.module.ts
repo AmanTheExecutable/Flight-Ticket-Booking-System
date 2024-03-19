@@ -9,7 +9,6 @@ import { AppComponent } from './app.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { UpcomingTripsComponent } from './dashboard/upcoming-trips/upcoming-trips.component';
 import { ManageAccountComponent } from './dashboard/manage-account/manage-account.component';
 import { BookingCancellationsComponent } from './dashboard/booking-cancellations/booking-cancellations.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
@@ -34,11 +33,6 @@ const routes: Routes = [
     path: 'admin-dashboard',
     component: AdminDashboardComponent,
     canActivate: [AdminAuthGuard],
-  },
-  {
-    path: 'upcoming-trips',
-    component: UpcomingTripsComponent,
-    canActivate: [UserAuthGuard],
   },
   {
     path: 'manage-account',
@@ -110,7 +104,6 @@ const routes: Routes = [
     RegistrationComponent,
     LoginComponent,
     DashboardComponent,
-    UpcomingTripsComponent,
     ManageAccountComponent,
     BookingCancellationsComponent,
     AdminDashboardComponent,

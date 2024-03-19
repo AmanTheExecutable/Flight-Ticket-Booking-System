@@ -4,26 +4,33 @@ import { BookingService } from '../../services/booking.service';
 @Component({
   selector: 'app-view-flight-bookings',
   templateUrl: './view-flight-bookings.component.html',
-  styleUrls: ['./view-flight-bookings.component.scss']
+  styleUrls: ['./view-flight-bookings.component.scss'],
 })
 export class ViewFlightBookingsComponent implements OnInit {
-  pastBookings: any[] = [];
-  futureBookings: any[] = [];
-  confirmedBookings: any[] = [];
+  allBookings: any[];
 
-  constructor(private bookingService: BookingService) { }
+  constructor(private bookingService: BookingService) {}
 
   ngOnInit(): void {
-    this.bookingService.getPastBookings('userId').subscribe(bookings => {
-      this.pastBookings = bookings;
-    });
-
-    this.bookingService.getFutureBookings('userId').subscribe(bookings => {
-      this.futureBookings = bookings;
-    });
-
-    this.bookingService.getConfirmedBookings().subscribe(bookings => {
-      this.confirmedBookings = bookings;
+    this.bookingService.getAllBookings().subscribe((bookings) => {
+      this.allBookings = bookings.map((booking) => ({
+        travelID: booking.bookingId,
+        bookingDate: booking.bookingDate.split('T')[0],
+        userName: booking.name,
+        company: booking.flightName,
+        flightNumber: booking.flightNumber,
+        source: booking.source,
+        destination: booking.destination,
+        departureDate: booking.departureTime.split('T')[0],
+        arrivalDate: booking.arrivalTime.split('T')[0],
+        passengerName: booking.passengerName,
+        passengerGender: booking.passengerGender,
+        passengerPhone: booking.passengerPhone,
+        passengerAge: booking.passengerAge,
+        passengerEmail: booking.passengerEmail,
+        price: booking.ticketPrice,
+        seatPrefernce: booking.seatPreference,
+      }));
     });
   }
 }

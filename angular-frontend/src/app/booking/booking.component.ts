@@ -48,9 +48,7 @@ export class BookingComponent implements OnInit {
         age: ['', Validators.required],
         phone: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
-        address: ['', Validators.required],
         seatCategory: ['economy'],
-        seat: [this.seats++],
         gender: ['', Validators.required],
       })
     );
@@ -64,6 +62,15 @@ export class BookingComponent implements OnInit {
 
   confirmBooking() {
     const passengersData = this.bookingForm.get('passengers').value;
+    if (
+      passengersData
+        .map((passenger) => Object.values(passenger))
+        .flat()
+        .includes('')
+    ) {
+      alert('Please fill all the details');
+      return;
+    }
     const flight = this.flight;
 
     this.bookingDataService.setPassengersData(passengersData);

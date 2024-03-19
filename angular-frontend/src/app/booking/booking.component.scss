@@ -1,28 +1,33 @@
 .booking {
-  max-width: 600px;
+  padding-left: 400px;
+  padding-right: 400px;
   margin: 0 auto;
-  padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
-  background-color: #fff;
+  background: linear-gradient(to bottom, #66b2ff, #fafafa);
 
   h2 {
-    font-size: 24px;
+    font-size: 30px;
     margin-bottom: 20px;
     text-align: center;
   }
 
   .flight-details {
-    border-bottom: 1px solid #ccc;
+    background-color: #ccc;
+    border-radius: 8px;
     padding-bottom: 20px;
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    border-bottom: 3px solid #000000;
+    font-size: 22px;
 
     p {
       margin: 5px 0;
+      font-size: 16px;
+      font-weight: bold;
     }
 
     label {
@@ -33,30 +38,49 @@
   }
 
   .passenger {
+    margin-top: 30px;
+    border-radius: 8px;
+    padding: 20px;
+
+    .individual-passenger {
+      border: 2px solid #000000;
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 12px;
+    }
+
     h3 {
       margin-bottom: 20px;
+      margin-top: 20px;
       text-align: center;
+      background-color: rgb(78, 128, 247);
+      padding: 10px;
+      border-radius: 8px;
+      color: black;
     }
     .passenger-details {
       margin-bottom: 20px;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      align-items: center;
 
       label {
         display: inline;
         font-weight: bold;
         margin-bottom: 5px;
+        text-align: center;
       }
 
       input[type="text"],
       input[type="email"],
       select {
-        display: inline-block;
+        // display: inline-block;
         margin-bottom: 10px;
         padding: 8px;
         border: 1px solid #ccc;
         border-radius: 5px;
+        width: 50%;
       }
 
       button {
@@ -66,20 +90,50 @@
         background-color: red;
         color: #fff;
         cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      button:hover {
+        transform: scale(1.1);
       }
     }
   }
 
   .bottom-btns {
-    text-align: center;
-    button {
-      margin: 0 5px;
-      padding: 8px 15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+
+    .add,
+    .confirm,
+    .cancel {
+      padding: 10px 20px;
       border: none;
       border-radius: 5px;
-      background-color: #007bff;
-      color: #fff;
       cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: bold;
+
+      &.add {
+        background-color: #4e80f7;
+        color: #000;
+      }
+
+      &.confirm {
+        background-color: #15f724;
+        color: #000;
+      }
+
+      &.cancel {
+        background-color: #f74e4e;
+        color: #fff;
+      }
+
+      &:hover {
+        transform: scale(1.1);
+      }
     }
   }
 }
