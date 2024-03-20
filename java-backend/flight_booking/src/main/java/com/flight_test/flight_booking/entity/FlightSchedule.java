@@ -1,23 +1,25 @@
 package com.flight_test.flight_booking.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Locale;
 
 @Entity
 @Table(name = "flight_schedule")
+@Builder
 public class FlightSchedule {
     @Id
-    @Column(name = "schedule_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int scheduleId;
 
-    @Column(name = "flight_id")
-    private int flightId;
+    @Column(name = "flight_number")
+    private String flightNumber;
 
-    @Column(name = "flight_model")
-    private String flightModel;
+    @Column(name = "flight_name")
+    private String flightName;
 
     @Column(name = "source")
     private String source;
@@ -38,7 +40,7 @@ public class FlightSchedule {
     private Double BC_Price;
 
     @Column(name = "first_class_price")
-    private String FC_Price;
+    private Double FC_Price;
 
     @Column(name = "economy_class_seats")
     private int EC_Seats;
@@ -49,11 +51,23 @@ public class FlightSchedule {
     @Column(name = "first_class_seats")
     private int FC_Seats;
 
-    @Column(name = "seats")
-    private String seats;
+    public FlightSchedule(){}
 
-    @OneToMany(mappedBy = "flightSchedule")
-    private List<BookingDetails> bookings;
+    public FlightSchedule(int scheduleId, String flightNumber, String flightName, String source, String destination, LocalDateTime departureTime, LocalDateTime arrivalTime, Double EC_Price, Double BC_Price, Double FC_Price, int EC_Seats, int BC_Seats, int FC_Seats) {
+        this.scheduleId = scheduleId;
+        this.flightNumber = flightNumber;
+        this.flightName = flightName;
+        this.source = source;
+        this.destination = destination;
+        this.departureTime = departureTime;
+        this.arrivalTime = arrivalTime;
+        this.EC_Price = EC_Price;
+        this.BC_Price = BC_Price;
+        this.FC_Price = FC_Price;
+        this.EC_Seats = EC_Seats;
+        this.BC_Seats = BC_Seats;
+        this.FC_Seats = FC_Seats;
+    }
 
     public int getScheduleId() {
         return scheduleId;
@@ -63,20 +77,20 @@ public class FlightSchedule {
         this.scheduleId = scheduleId;
     }
 
-    public int getFlightId() {
-        return flightId;
+    public String getFlightNumber() {
+        return flightNumber;
     }
 
-    public void setFlightId(int flightId) {
-        this.flightId = flightId;
+    public void setFlightNumber(String flightNumber) {
+        this.flightNumber = flightNumber;
     }
 
-    public String getFlightModel() {
-        return flightModel;
+    public String getFlightName() {
+        return flightName;
     }
 
-    public void setFlightModel(String flightModel) {
-        this.flightModel = flightModel;
+    public void setFlightName(String flightName) {
+        this.flightName = flightName;
     }
 
     public String getSource() {
@@ -127,11 +141,11 @@ public class FlightSchedule {
         this.BC_Price = BC_Price;
     }
 
-    public String getFC_Price() {
+    public Double getFC_Price() {
         return FC_Price;
     }
 
-    public void setFC_Price(String FC_Price) {
+    public void setFC_Price(Double FC_Price) {
         this.FC_Price = FC_Price;
     }
 
@@ -159,19 +173,4 @@ public class FlightSchedule {
         this.FC_Seats = FC_Seats;
     }
 
-    public String getSeats() {
-        return seats;
-    }
-
-    public void setSeats(String seats) {
-        this.seats = seats;
-    }
-
-    public List<BookingDetails> getBookings() {
-        return bookings;
-    }
-
-    public void setBookings(List<BookingDetails> bookings) {
-        this.bookings = bookings;
-    }
 }

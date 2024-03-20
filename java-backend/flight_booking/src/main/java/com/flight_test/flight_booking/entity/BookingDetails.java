@@ -7,14 +7,10 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "bookings")
 public class BookingDetails {
-
     @Id
     @Column(name = "booking_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int bookingId;
-
-    @Column(name = "flight_id")
-    private int flightId;
 
     @Column(name = "user_id")
     private int userId;
@@ -34,38 +30,34 @@ public class BookingDetails {
     @Column(name = "passenger_gender")
     private String passengerGender;
 
-    @Column(name = "ticket_price")
-    private String ticketPrice;
-
     @Column(name = "passenger_age")
     private int passengerAge;
+
+    @Column(name="price")
+    private int ticketPrice;
+
+    @Column(name="seat_preference")
+    private String seatPreference;
 
     @Column(name = "booking_date")
     private LocalDateTime bookingDate;
 
-    @ManyToOne
-    @JoinColumn(name = "flight_id")
-    private FlightSchedule flightSchedule;
 
-    public FlightSchedule getFlightSchedule() {
-        return flightSchedule;
+    public int getTicketPrice() {
+        return ticketPrice;
     }
 
-    public void setFlightSchedule(FlightSchedule flightSchedule) {
-        this.flightSchedule = flightSchedule;
+    public String getSeatPreference() {
+        return seatPreference;
     }
 
-    public UserDetails getUserDetail() {
-        return userDetail;
+    public void setSeatPreference(String seatPreference) {
+        this.seatPreference = seatPreference;
     }
 
-    public void setUserDetail(UserDetails userDetail) {
-        this.userDetail = userDetail;
+    public void setTicketPrice(int ticketPrice) {
+        this.ticketPrice = ticketPrice;
     }
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private UserDetails userDetail;
 
     public int getBookingId() {
         return bookingId;
@@ -75,13 +67,7 @@ public class BookingDetails {
         this.bookingId = bookingId;
     }
 
-    public int getFlightId() {
-        return flightId;
-    }
 
-    public void setFlightId(int flightId) {
-        this.flightId = flightId;
-    }
 
     public int getUserId() {
         return userId;
@@ -131,13 +117,6 @@ public class BookingDetails {
         this.passengerGender = passengerGender;
     }
 
-    public String getTicketPrice() {
-        return ticketPrice;
-    }
-
-    public void setTicketPrice(String ticketPrice) {
-        this.ticketPrice = ticketPrice;
-    }
 
     public int getPassengerAge() {
         return passengerAge;
@@ -154,4 +133,5 @@ public class BookingDetails {
     public void setBookingDate(LocalDateTime bookingDate) {
         this.bookingDate = bookingDate;
     }
+
 }
