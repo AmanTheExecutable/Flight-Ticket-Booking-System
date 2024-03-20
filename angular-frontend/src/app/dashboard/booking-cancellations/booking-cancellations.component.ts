@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BookingService } from '../../services/booking.service';
 import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-booking-cancellation',
@@ -12,7 +13,8 @@ export class BookingCancellationsComponent implements OnInit {
 
   constructor(
     private bookingService: BookingService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -30,7 +32,7 @@ export class BookingCancellationsComponent implements OnInit {
 
   cancelBooking(bookingId: number) {
     this.bookingService.cancelBooking(bookingId);
-    this.refreshConfirmedBookings();
+    this.router.navigate(['/user-dashboard']);
   }
 
   refreshConfirmedBookings(): void {

@@ -1,16 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserService } from '../services/user.service'
+import { UserService } from '../services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.scss']
+  styleUrls: ['./registration.component.scss'],
 })
 export class RegistrationComponent implements OnInit {
   registrationForm: FormGroup;
-  constructor(private fb: FormBuilder, private userService: UserService,private router: Router, private route: ActivatedRoute) { }
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.registrationForm = this.fb.group({
@@ -19,7 +24,6 @@ export class RegistrationComponent implements OnInit {
       phoneNo: ['', Validators.required],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required],
-
     });
   }
 
@@ -30,14 +34,15 @@ export class RegistrationComponent implements OnInit {
     const { name, email, phoneNo, password } = this.registrationForm.value;
 
     const formData = {
-      name,
-      email,
-      phone_no: phoneNo,
-      password
+      name: name,
+      username: email,
+      phoneNo: phoneNo,
+      password: password,
     };
-
+    console.log(formData);
     this.userService.register(formData).subscribe((response) => {
       if (response) {
+        alert('Registration successful');
         this.router.navigate(['/login']);
       }
     });
@@ -46,5 +51,4 @@ export class RegistrationComponent implements OnInit {
   onCancel(): void {
     this.router.navigate(['/login']);
   }
-
 }

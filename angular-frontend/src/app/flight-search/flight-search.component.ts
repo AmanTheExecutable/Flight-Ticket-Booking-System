@@ -14,6 +14,7 @@ export class FlightSearchComponent {
   destination: string;
   departureDate: string;
   roundTrip: boolean;
+  returnDate: string;
   userform: FormGroup;
 
   constructor(
@@ -26,25 +27,32 @@ export class FlightSearchComponent {
       destination: [''],
       departureDate: [''],
       roundTrip: [''],
+      returnDate: [''],
     });
   }
 
   searchFlights(
     source: string,
     destination: string,
-    departureDate: string
+    departureDate: string,
+    returnDate: string
   ): void {
     if (!source || !destination || !departureDate) {
       alert('Please fill required fields');
       return;
     }
     const obj = {
-      source: source.toUpperCase(),
-      destination: destination.toUpperCase(),
+      source: capitalizeFirstLetter(source),
+      destination: capitalizeFirstLetter(destination),
       departureDate: departureDate,
-      returningDate: '',
+      returningDate: returnDate ? returnDate : '',
       flightNumber: '',
     };
+
+    function capitalizeFirstLetter(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+    }
+    console.log(obj);
     this.flightService
       .searchFlightsByPost(obj)
       .subscribe((flights: Flight[]) => {

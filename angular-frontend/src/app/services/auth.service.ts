@@ -15,7 +15,7 @@ export class AuthService {
     private userService: UserService
   ) {}
   private isLoggedIn = false;
-  private isAdminLoggedIn = true;
+  private isAdminLoggedIn = false;
 
   public isAuthenticated(): boolean {
     return this.isLoggedIn;

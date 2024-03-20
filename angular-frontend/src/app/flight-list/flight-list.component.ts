@@ -23,6 +23,7 @@ export class FlightListComponent implements OnInit {
 
   ngOnInit(): void {
     this.flights = this.flightService.searchListFlights;
+    console.log(this.flights);
     this.source = this.route.snapshot.queryParamMap.get('source').toUpperCase();
     this.destination = this.route.snapshot.queryParamMap
       .get('destination')

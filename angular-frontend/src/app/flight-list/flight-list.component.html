@@ -9,6 +9,7 @@
         <div class="flight-info">
           <h2 class="airline-name">
             {{ flight.company }} {{ flight.flightNumber }}
+            <span>{{ flight.path }}</span>
           </h2>
           <p class="departure">Departure {{ flight.departureTime }}</p>
           <p class="duration">Duration {{ calculateDuration(flight) }}</p>

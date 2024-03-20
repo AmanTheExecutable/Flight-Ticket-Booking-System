@@ -1,4 +1,7 @@
-<div class="confirmed-bookings">
+<div
+  *ngIf="upcomingBookings.length !== 0; else noBookings"
+  class="confirmed-bookings"
+>
   <h2>Confirmed Bookings</h2>
   <ul>
     <li *ngFor="let booking of upcomingBookings">
@@ -21,3 +24,9 @@
     </li>
   </ul>
 </div>
+
+<ng-template #noBookings>
+  <div class="no-upcoming-bookings">
+    <p>No upcoming bookings</p>
+  </div>
+</ng-template>
